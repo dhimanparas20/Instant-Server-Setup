@@ -68,4 +68,5 @@ alias dclean="sudo docker system prune -a"         # Prune unused containers, im
 alias dcleanf="sudo docker system prune --all --volumes --force"  # Aggressively prune all
 
 clear
+echo "Welcome Ken "
 ls
