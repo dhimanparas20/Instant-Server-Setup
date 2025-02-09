@@ -1,3 +1,4 @@
+#!/bin/zsh
 # The script also sets up some configurations wherever needed
 
 # Start
@@ -43,7 +44,5 @@ source "$ZSHRC_FILE"
 
 clear
 echo "Docker-related commands, aliases, and plugins added successfully to .zshrc."
-echo "System Will Reboot"
+echo "Please manually reboot the system once, using 'sudo reboot' "
 echo "You can delete This file After Reboot."
-sleep 2
-reboot

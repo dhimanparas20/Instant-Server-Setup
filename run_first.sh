@@ -20,7 +20,7 @@ set -e
 # The Basics
 apt update
 apt upgrade -y
-apt install git zsh snapd python3 python3-pip ufw neofetch net-tools htop network-manager -y
+apt install git snapd python3 python3-pip ufw neofetch net-tools htop network-manager -y
 
 # Install LazyDocker
 clear
@@ -68,6 +68,6 @@ clear
 echo "---------------------------------------------------------------------------------"
 echo "                                    Reboot                                       "
 echo "---------------------------------------------------------------------------------"
-echo "after reboot run zsh run_second.sh"
+echo "after reboot proceed to 2nd step"
 sleep 1
 reboot
