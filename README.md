@@ -10,7 +10,7 @@ Follow these steps to set up your server using this repository.
 Run the following command to download and execute the first setup script:
 
 ```sh
-wget https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/run_first.sh && chmod +x run_first.sh && sudo ./run_first.sh
+wget https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_first.sh && chmod +x run_first.sh && sudo ./run_first.sh
 ```
 
 This script will:

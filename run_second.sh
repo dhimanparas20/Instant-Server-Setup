@@ -54,6 +54,6 @@ source "$ZSHRC_FILE"
 clear
 echo "Docker-related commands, aliases, and plugins added successfully to .zshrc."
 echo "System Will Reboot"
-echo "You can delete This Folder After Reboot."
+echo "You can delete This file After Reboot."
 sleep 5
 reboot
