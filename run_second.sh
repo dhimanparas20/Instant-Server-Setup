@@ -1,23 +1,13 @@
-#!/bin/bash
-# The script must be run using sudo
 # The script also sets up some configurations wherever needed
-
-# Check if the script is run with sudo
-if [ "$(id -u)" -ne 0 ]; then
-    echo "Please run this script with sudo:"
-    echo "sudo ./run_second.sh"
-    exit 1
-fi
 
 # Start
 clear
 echo "---------------------------------------------------------------------------------"
 echo "                                    Step 2                                       "
 echo "---------------------------------------------------------------------------------"
-sleep 1
+sleep 0.5
 set -e
 rm -rf run_first.sh && echo "run_first.sh deleted from home directory"
-sleep 1
 
 # Install Zsh plugins
 clear
@@ -55,5 +45,5 @@ clear
 echo "Docker-related commands, aliases, and plugins added successfully to .zshrc."
 echo "System Will Reboot"
 echo "You can delete This file After Reboot."
-sleep 5
+sleep 2
 reboot

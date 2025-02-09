@@ -56,7 +56,7 @@ git config --global credential.helper store
 # Clone Full Repo
 clear
 echo "---------------------------------------------------------------------------------"
-echo "                                 Cloning Full Repo                               "
+echo "                           Downloading next Script                               "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
 wget https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_second.sh
@@ -68,5 +68,6 @@ clear
 echo "---------------------------------------------------------------------------------"
 echo "                                    Reboot                                       "
 echo "---------------------------------------------------------------------------------"
-sleep 2
+echo "after reboot run zsh run_second.sh"
+sleep 1
 reboot

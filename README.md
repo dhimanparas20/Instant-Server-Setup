@@ -32,7 +32,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 Run the second setup script to configure Oh My Zsh extensions, set up aliases, and finalize the system:
 
 ```sh
-sudo ./run_second.sh
+zsh run_second.sh
 ```
 
 This script will:
@@ -46,7 +46,7 @@ After the final reboot, your server will be fully set up with all dependencies a
 
 ## Notes
 - Ensure you have `wget` installed before running the initial command.
-- The scripts should be executed with `sudo` to ensure all packages and configurations are correctly applied.
+- The 1st script script should be executed with `sudo` to ensure all packages and configurations are correctly applied.
 
 ## License
 This project is open-source. Feel free to modify and distribute it as per your requirements.
