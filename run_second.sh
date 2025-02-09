@@ -16,8 +16,8 @@ echo "                                    Step 2                                
 echo "---------------------------------------------------------------------------------"
 sleep 1
 set -e
-rm -f ~/run_first.sh && echo "run_first.sh deleted from home directory"
-sleep 0.5
+rm -rf run_first.sh && echo "run_first.sh deleted from home directory"
+sleep 1
 
 # Install Zsh plugins
 clear
@@ -46,6 +46,7 @@ sed -i 's/^ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/' "$ZSHRC_FILE"
 
 # Adding Docker Alias
 cat dockerAlias.sh >> ~/.zshrc
+rm -rf dockerAlias.sh
 
 # Reload the .zshrc file to apply the changes immediately
 source "$ZSHRC_FILE"

@@ -20,11 +20,7 @@ This script will:
 - Reboot the system
 
 ### Step 2: Oh My Zsh Installation
-Once the server reboots, reconnect and navigate to the cloned directory:
-
-```sh
-cd Instant-Server-Setup
-```
+Once the server reboots, reconnect the server:
 
 Then, install Oh My Zsh using the following command:
 

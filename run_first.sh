@@ -59,10 +59,9 @@ echo "--------------------------------------------------------------------------
 echo "                                 Cloning Full Repo                               "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
-git clone https://github.com/dhimanparas20/Instant-Server-Setup
-cd Instant-Server-Setup
-chmod +x run_second.sh
-
+wget https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/run_second.sh
+wget https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/dockerAlias.sh.sh
+chmod +x run_first.sh
 
 # Finally Rebooting
 clear
