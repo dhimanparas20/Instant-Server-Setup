@@ -17,10 +17,13 @@ echo "--------------------------------------------------------------------------
 sleep 0.5
 set -e
 
+# Disable interactive prompts
+export DEBIAN_FRONTEND=noninteractive
+
 # The Basics
-apt update
-apt upgrade -y
-apt install git snapd python3 python3-pip ufw neofetch net-tools htop network-manager -y
+apt update -q
+apt upgrade -yq
+apt install -yq git snapd python3 python3-pip ufw neofetch net-tools htop network-manager
 
 # Install LazyDocker
 clear
@@ -29,7 +32,7 @@ echo "                            Installing LazyDocker                         
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
 curl -sSL https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository | sudo bash
-apt install lazydocker -y
+apt install -yq lazydocker
 
 # Install Docker
 clear
@@ -37,7 +40,7 @@ echo "--------------------------------------------------------------------------
 echo "                                 Installing Docker                               "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
-wget https://get.docker.com -O install-docker.sh
+wget -q https://get.docker.com -O install-docker.sh
 chmod +x install-docker.sh
 ./install-docker.sh
 rm install-docker.sh
@@ -59,8 +62,8 @@ echo "--------------------------------------------------------------------------
 echo "                           Downloading next Script                               "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
-wget https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_second.sh
-wget https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/dockerAlias.sh
+wget -q https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/run_second.sh
+wget -q https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/dockerAlias.sh
 chmod +x run_second.sh
 
 # Finally Rebooting
