@@ -23,7 +23,7 @@ export DEBIAN_FRONTEND=noninteractive
 # The Basics
 apt update -q
 apt upgrade -yq
-apt install -yq git snapd python3 python3-pip ufw neofetch net-tools htop network-manager
+apt install -yq git snapd python3 python3-pip ufw dnsutils neofetch net-tools htop network-manager
 
 # Install LazyDocker
 clear
