@@ -44,6 +44,7 @@ wget -q https://get.docker.com -O install-docker.sh
 chmod +x install-docker.sh
 ./install-docker.sh
 rm install-docker.sh
+usermod -aG docker $USER
 
 # Store git passwords and add user signature
 clear
