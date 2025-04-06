@@ -6,12 +6,13 @@ alias cls="clear"  # Clear the terminal screen
 # =============================
 # Docker Container Management
 # =============================
-alias dps="sudo docker ps -a --format 'table {{.ID}}\t{{.Image}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Ports}}'"  # List all containers (running and stopped)
+#alias dps="sudo docker ps -a --format 'table {{.ID}}\t{{.Image}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Ports}}'"  # List all containers (running and stopped)
+alias dps="sudo docker ps -a --format 'table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Ports}}'"
 alias dstart="sudo docker start"                   # Start a stopped container
 alias dstop="sudo docker stop"                     # Stop a running container
 alias drestart="sudo docker restart"               # Restart a container
 alias drm="sudo docker rm -f "                     # Forcefully remove a container
-alias dlogs="sudo docker logs -f"                  # Tail logs of a container
+alias dlog="sudo docker logs -f"                  # Tail logs of a container
 alias dexec="sudo docker exec -it "                # Execute a command in a running container
 alias dkill="sudo docker kill"                     # Kill a running container
 alias dinspect="sudo docker inspect"               # Inspect a container
