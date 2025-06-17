@@ -24,6 +24,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt update -q
 apt upgrade -yq
 apt install -yq curl postgresql postgresql-contrib git snapd python3 python3-pip python3-venv ufw dnsutils neofetch net-tools htop network-manager
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Install LazyDocker
 clear
@@ -44,7 +45,9 @@ wget -q https://get.docker.com -O install-docker.sh
 chmod +x install-docker.sh
 ./install-docker.sh
 rm install-docker.sh
+groupadd docker
 usermod -aG docker $USER
+newgrp docker
 
 # Store git passwords and add user signature
 clear
