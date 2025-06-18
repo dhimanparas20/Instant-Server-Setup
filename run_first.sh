@@ -45,9 +45,7 @@ wget -q https://get.docker.com -O install-docker.sh
 chmod +x install-docker.sh
 ./install-docker.sh
 rm install-docker.sh
-groupadd docker
-usermod -aG docker $USER
-newgrp docker
+
 
 # Store git passwords and add user signature
 clear
@@ -76,5 +74,8 @@ echo "--------------------------------------------------------------------------
 echo "                                    Reboot                                       "
 echo "---------------------------------------------------------------------------------"
 echo "after reboot proceed to 2nd step"
+groupadd docker
+usermod -aG docker $USER
+newgrp docker
 sleep 1
 reboot
