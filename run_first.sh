@@ -74,8 +74,10 @@ echo "--------------------------------------------------------------------------
 echo "                                    Reboot                                       "
 echo "---------------------------------------------------------------------------------"
 echo "after reboot proceed to 2nd step"
-groupadd docker
-usermod -aG docker $USER
-newgrp docker
+apt-get install -y uidmap
+dockerd-rootless-setuptool.sh install
+#groupadd docker
+#usermod -aG docker $USER
+#newgrp docker
 sleep 1
 reboot
