@@ -24,7 +24,7 @@ Once the server reboots, reconnect the server:
 
 Then, install Oh My Zsh using the following command:
 
-```sh 
+```sh
 sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
