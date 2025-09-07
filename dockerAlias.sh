@@ -1,6 +1,5 @@
 export PATH="$PATH:$HOME/bin"
 export PATH="$HOME/.local/bin:$PATH"
-export DOCKER_HOST=unix:///run/user/1000/docker.sock
 alias docker="docker "
 alias doc="docker compose "
 
