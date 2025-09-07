@@ -1,11 +1,14 @@
-# Utility alias
-alias cls="clear"  # Clear the terminal screen
+export PATH="$PATH:$HOME/bin"
+export PATH="$HOME/.local/bin:$PATH"
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
+alias docker="docker "
+alias doc="docker compose "
 
 # =============================
 # Docker Container Management
 # =============================
 #alias dps="docker ps -a --format 'table {{.ID}}\t{{.Image}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Ports}}'"  # List all containers (running and stopped)
-alias dps="sudo docker ps -a --format 'table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Ports}}'"
+alias dps="docker ps -a --format 'table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Ports}}'"
 alias dstart="docker start"                   # Start a stopped container
 alias dstop="docker stop"                     # Stop a running container
 alias drestart="docker restart"               # Restart a container
@@ -50,12 +53,17 @@ alias dnprune="docker network prune"          # Remove all unused networks
 # Docker Compose Management
 # ================================
 alias dup="docker compose up"                 # Bring up services defined in a compose file
+alias dcstop="docker compose stop "
 alias dup-d="docker compose up -d"            # Bring up services in detached mode
 alias dbuild="docker compose build"           # Build services defined in a compose file
 alias dbuildup="docker compose up --build"    # Build and bring up services
 alias dbuildup-d="docker compose up --build -d" # Build and bring up services in detached mode
 alias ddown="docker compose down"             # Bring down services defined in a compose file
 alias ddownrmi="docker compose down --rmi all" # Bring down services and remove images
+alias dclog="docker compose logs -f "          # Tail logs of services
+alias dcrestart="docker compose restart "      # Restart services
+alias dcexec="docker compose exec -it "        # Execute a command in a running service container
+
 
 # ============================
 # Docker System Management
@@ -63,9 +71,12 @@ alias ddownrmi="docker compose down --rmi all" # Bring down services and remove 
 alias dinfo="docker info"                     # Display detailed Docker system information
 alias dstats="docker stats --all"             # Display resource usage for all containers
 alias dtop="docker top"                       # Display top-like stats for a container
+alias dimgclean="docker images | grep '<none>' | awk '{print $3}' | xargs docker rmi"
 alias dclean="docker system prune -a"         # Prune unused containers, images, and volumes
 alias dcleanf="docker system prune --all --volumes --force"  # Aggressively prune all
 
 clear
-echo "Welcome Ken "
+echo "Hello GOD!"
 ls
+
+eval "$(zoxide init zsh)"
