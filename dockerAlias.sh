@@ -1,7 +1,11 @@
 export PATH="$PATH:$HOME/bin"
 export PATH="$HOME/.local/bin:$PATH"
+
+# System Aliases
+alias cls="clear"
 alias docker="docker "
 alias doc="docker compose "
+alias ld="lazydocker "
 
 # =============================
 # Docker Container Management
