@@ -9,6 +9,7 @@ echo "--------------------------------------------------------------------------
 sleep 0.5
 set -e
 rm -rf run_first.sh && echo "run_first.sh deleted from home directory"
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 
 # Install Zsh plugins
 clear
