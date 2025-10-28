@@ -3,9 +3,21 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # System Aliases
 alias cls="clear"
-alias docker="docker "
+alias docker="docker"
+# alias docker="sudo docker"
 alias doc="docker compose "
 alias ld="lazydocker "
+
+# Git Alias
+alias gadd="git add ."
+alias gcommit="git commit -m "
+alias gpush="git push "
+
+## Alias to all the servers
+alias raspi='sshpass -p "1212" ssh paras@ip'
+alias server="ssh -i '/location/to/key.pem' ubuntu@ip"
+alias server3='sshpass -p "password" ssh root@ip' 
+
 
 # =============================
 # Docker Container Management
