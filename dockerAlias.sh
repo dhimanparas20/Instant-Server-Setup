@@ -16,7 +16,7 @@ alias gpush="git push "
 ## Alias to all the servers
 alias raspi='sshpass -p "1212" ssh paras@ip'
 alias server="ssh -i '/location/to/key.pem' ubuntu@ip"
-alias server3='sshpass -p "password" ssh root@ip' 
+alias server2='sshpass -p "password" ssh root@ip' 
 
 
 # =============================
@@ -89,6 +89,24 @@ alias dtop="docker top"                       # Display top-like stats for a con
 alias dimgclean="docker images | grep '<none>' | awk '{print $3}' | xargs docker rmi"
 alias dclean="docker system prune -a"         # Prune unused containers, images, and volumes
 alias dcleanf="docker system prune --all --volumes --force"  # Aggressively prune all
+
+# =================================
+# Extra Docker Compose Things
+# =================================
+alias dclog="docker compose logs -f "
+alias dcrestart="docker compose restart "
+alias dcexec="docker compose exec -it "
+alias dcipython="docker compose exec -it app ipython"
+
+alias py="python3"
+alias activate="python3 -m venv venv && source venv/bin/activate"
+alias runserver="uv run python3 manage.py runserver 0.0.0.0:5000  "
+alias migrate="uv run python3 manage.py migrate"
+alias makemigrations="uv run python3 manage.py makemigrations"
+
+alias down="cd && cd Downloa*"
+alias desk="cd && cd Desktop"
+alias proj="cd && cd Desktop && cd Projects"
 
 clear
 echo "Hello GOD!"
