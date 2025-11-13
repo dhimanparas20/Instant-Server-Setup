@@ -26,7 +26,7 @@ apt upgrade -yq
 apt install -yq curl postgresql postgresql-contrib git snapd python3 python3-pip python3-venv fuse ufw dnsutils fastfetch net-tools htop btop nvtop grub-customizer gparted network-manager tlp tlp-rdw linux-headers-$(uname -r)
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Install LazyDocker
+# Install Other Stuff
 clear
 echo "---------------------------------------------------------------------------------"
 echo "                            Installing Other Stuff                               "
@@ -37,6 +37,16 @@ curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash                          # nvm
 nvm install node
 apt install -yq lazydocker
+
+# Install LazyDocker
+clear
+echo "---------------------------------------------------------------------------------"
+echo "                         Installing from SNAP Store                              "
+echo "---------------------------------------------------------------------------------"
+sleep 0.5
+snap install postman
+snap install ngrok
+snap install mpv
 
 # Install Docker
 clear
