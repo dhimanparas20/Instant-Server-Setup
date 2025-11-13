@@ -35,6 +35,13 @@ Run the second setup script to configure Oh My Zsh extensions, set up aliases, a
 zsh run_second.sh && rm -rf run_second.sh  && sudo reboot
 ```
 
+### Step 4: Optional for GUI tools
+Run this script to install some more Gui based Tools
+
+```sh
+wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_optional.sh | sudo bash
+```
+
 This script will:
 - Configure Oh My Zsh
 - Install necessary plugins and extensions
@@ -50,4 +57,3 @@ After the final reboot, your server will be fully set up with all dependencies a
 
 ## License
 This project is open-source. Feel free to modify and distribute it as per your requirements.
-
