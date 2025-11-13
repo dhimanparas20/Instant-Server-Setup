@@ -24,7 +24,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt update -q
 apt upgrade -yq
 add-apt-repository universe
-apt install -yq curl postgresql lazydocker postgresql-contrib git snapd python3 python3-pip pipx python3-venv fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop network-manager tlp tlp-rdw linux-headers-$(uname -r)
+apt install -yq curl postgresql lazydocker postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop network-manager tlp tlp-rdw linux-headers-$(uname -r)
 pipx ensurepath
 
 # Install Other Stuff
@@ -53,6 +53,7 @@ wget -q https://get.docker.com -O install-docker.sh
 chmod +x install-docker.sh
 ./install-docker.sh
 rm install-docker.sh
+dockerd-rootless-setuptool.sh install
 
 
 # Store git passwords and add user signature
@@ -66,22 +67,11 @@ git config --global credential.helper cache
 git config --global credential.helper store\]
 
 
-# Clone Full Repo
-echo "---------------------------------------------------------------------------------"
-echo "                           Downloading next Script                               "
-echo "---------------------------------------------------------------------------------"
-sleep 0.5
-wget -q https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/run_second.sh
-wget -q https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/dockerAlias.sh
-chmod +x run_second.sh
-
 # Finally Rebooting
 echo "---------------------------------------------------------------------------------"
 echo "                                    Reboot                                       "
 echo "---------------------------------------------------------------------------------"
 echo "after reboot proceed to 2nd step"
-apt-get install -y uidmap
-dockerd-rootless-setuptool.sh install
 #groupadd docker
 #usermod -aG docker $USER
 #newgrp docker
