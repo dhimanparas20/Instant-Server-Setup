@@ -12,7 +12,6 @@ rm -rf run_first.sh && echo "run_first.sh deleted from home directory"
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 
 # Install Zsh plugins
-clear
 echo "---------------------------------------------------------------------------------"
 echo "                         Cloning ohmyzsh extentions                              "
 echo "---------------------------------------------------------------------------------"
@@ -24,7 +23,6 @@ sudo git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/p
 # Define the file path for .zshrc
 ZSHRC_FILE="$HOME/.zshrc"
 
-clear
 echo "---------------------------------------------------------------------------------"
 echo "                                   Editing .zshrc                                "
 echo "---------------------------------------------------------------------------------"
@@ -43,7 +41,9 @@ rm -rf dockerAlias.sh
 # Reload the .zshrc file to apply the changes immediately
 source "$ZSHRC_FILE"
 
-clear
+echo "---------------------------------------------------------------------------------"
 echo "Docker-related commands, aliases, and plugins added successfully to .zshrc."
 echo "Please manually reboot the system once, using 'sudo reboot' "
 echo "You can delete This file After Reboot."
+echo "---------------------------------------------------------------------------------"
+sleep 5
