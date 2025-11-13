@@ -43,7 +43,7 @@ echo "--------------------------------------------------------------------------
 echo "                         Installing from SNAP Store                              "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
-snap install snap-store postman ngrok mpv zoom-client rpi-imager PyCharm-community
+snap install snap-store postman ngrok mpv zoom-client rpi-imager PyCharm-community notepad-plus-plus
 # snap install docker
 
 
