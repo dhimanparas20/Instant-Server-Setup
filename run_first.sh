@@ -27,7 +27,6 @@ add-apt-repository universe
 apt install -yq curl postgresql lazydocker postgresql-contrib git snapd python3 python3-pip python3-venv fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop nvtop grub-customizer gparted network-manager tlp tlp-rdw linux-headers-$(uname -r)
 
 # Install Other Stuff
-clear
 echo "---------------------------------------------------------------------------------"
 echo "                            Installing Other Stuff                               "
 echo "---------------------------------------------------------------------------------"
@@ -38,7 +37,6 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash 
 nvm install node
 
 # Install LazyDocker
-clear
 echo "---------------------------------------------------------------------------------"
 echo "                         Installing from SNAP Store                              "
 echo "---------------------------------------------------------------------------------"
@@ -48,7 +46,6 @@ snap install snap-store postman ngrok mpv zoom-client rpi-imager PyCharm-communi
 
 
 # Install Docker
-clear
 echo "---------------------------------------------------------------------------------"
 echo "                                 Installing Docker                               "
 echo "---------------------------------------------------------------------------------"
@@ -60,7 +57,6 @@ rm install-docker.sh
 
 
 # Store git passwords and add user signature
-clear
 echo "---------------------------------------------------------------------------------"
 echo "                                 Adding Git Configs                              "
 echo "---------------------------------------------------------------------------------"
@@ -68,10 +64,21 @@ sleep 0.5
 git config --global user.name "dhimanparas20"
 git config --global user.email "dhimanparas20@gmail.com"
 git config --global credential.helper cache
-git config --global credential.helper store
+git config --global credential.helper store\]
+
+
+echo "---------------------------------------------------------------------------------"
+echo "                              Installing GRUB THEME                              "
+echo "---------------------------------------------------------------------------------"
+sleep 0.5
+git clone https://github.com/yeyushengfan258/Matrix-grub-theme.git
+cd Matrix-grub-theme
+chmod +x install.sh
+./install.sh -t window
+cd ..
+rm -rf Matrix-grub-theme
 
 # Clone Full Repo
-clear
 echo "---------------------------------------------------------------------------------"
 echo "                           Downloading next Script                               "
 echo "---------------------------------------------------------------------------------"
@@ -81,7 +88,6 @@ wget -q https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/mai
 chmod +x run_second.sh
 
 # Finally Rebooting
-clear
 echo "---------------------------------------------------------------------------------"
 echo "                                    Reboot                                       "
 echo "---------------------------------------------------------------------------------"
