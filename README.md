@@ -32,7 +32,7 @@ sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com
 Run the second setup script to configure Oh My Zsh extensions, set up aliases, and finalize the system:
 
 ```sh
-zsh run_second.sh && sudo reboot
+zsh run_second.sh && rm -rf run_second.sh  && sudo reboot
 ```
 
 This script will:
