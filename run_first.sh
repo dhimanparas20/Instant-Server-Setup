@@ -78,6 +78,7 @@ chmod +x install.sh
 cd ..
 rm -rf Matrix-grub-theme
 
+
 # Clone Full Repo
 echo "---------------------------------------------------------------------------------"
 echo "                           Downloading next Script                               "
