@@ -10,7 +10,7 @@ Follow these steps to set up your server using this repository.
 Run the following command to download and execute the first setup script:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_first.sh | sudo bash
+wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_first.sh | sudo bash
 ```
 
 This script will:
@@ -32,7 +32,9 @@ sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com
 Run the second setup script to configure Oh My Zsh extensions, set up aliases, and finalize the system:
 
 ```sh
-zsh run_second.sh && rm -rf run_second.sh  && sudo reboot
+wget -q https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/dockerAlias.sh
+wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_second.sh | sudo bash
+sudo reboot
 ```
 
 ### Step 4: Optional for GUI tools
