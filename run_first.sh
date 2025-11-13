@@ -29,10 +29,13 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # Install LazyDocker
 clear
 echo "---------------------------------------------------------------------------------"
-echo "                            Installing LazyDocker                                "
+echo "                            Installing Other Stuff                               "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
-curl -sSL https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository | sudo bash
+curl -sSL https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository | sudo bash  # Uv
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh                     # zoxide
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash                          # nvm
+nvm install node
 apt install -yq lazydocker
 
 # Install Docker
