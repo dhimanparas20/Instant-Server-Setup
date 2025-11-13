@@ -93,9 +93,15 @@ tlp-stat -s
 echo "=========================| PLATFORM TOOLS |========================================"
 wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
 unzip -o platform-tools-latest-linux.zip
-sudo mv -f platform-tools /opt/
-sudo ln -sf /opt/platform-tools/adb /usr/local/bin/adb
-sudo ln -sf /opt/platform-tools/fastboot /usr/local/bin/fastboot
+mv -f platform-tools /opt/
+ln -sf /opt/platform-tools/adb /usr/local/bin/adb
+ln -sf /opt/platform-tools/fastboot /usr/local/bin/fastboot
+echo "=========================| ARDUINO IDE |========================================"
+wget https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.6_Linux_64bit.AppImage
+chmod +x arduino-ide_2.3.6_Linux_64bit.AppImage
+mv arduino-ide_2.3.6_Linux_64bit.AppImage /opt/
+ln -sf /opt/arduino-ide_2.3.6_Linux_64bit.AppImage /usr/local/bin/arduino-ide
+echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules
 
 
 # Clone Full Repo
