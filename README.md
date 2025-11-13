@@ -42,6 +42,18 @@ Run this script to install some more Gui based Tools
 wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_optional.sh | sudo bash
 ```
 
+### Combined Step 2 in a Single Code Block
+Run this script to run all steps in a combined copy paste block
+
+```sh
+sudo apt install zsh -y 
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+zsh run_second.sh
+rm -rf run_second.sh
+wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_optional.sh | sudo bash
+sudo reboot
+```
+
 This script will:
 - Configure Oh My Zsh
 - Install necessary plugins and extensions
