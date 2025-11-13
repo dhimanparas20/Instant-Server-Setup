@@ -82,9 +82,11 @@ echo "--------------------------------------------------------------------------
 echo "                          Starting of installed Packages                         "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
+# nano /etc/tlp.conf
 systemctl start tlp
 systemctl enable tlp
 systemctl enable tlp-sleep
+systemctl restart tlp
 status tlp
 tlp-stat -s
 echo "================================================================================"
