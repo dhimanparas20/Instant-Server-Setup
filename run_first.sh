@@ -24,8 +24,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt update -q
 apt upgrade -yq
 add-apt-repository universe
-apt install -yq curl postgresql postgresql-contrib git snapd python3 python3-pip python3-venv fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop nvtop grub-customizer gparted network-manager tlp tlp-rdw linux-headers-$(uname -r)
-curl -LsSf https://astral.sh/uv/install.sh | sh
+apt install -yq curl postgresql lazydocker postgresql-contrib git snapd python3 python3-pip python3-venv fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop nvtop grub-customizer gparted network-manager tlp tlp-rdw linux-headers-$(uname -r)
 
 # Install Other Stuff
 clear
@@ -33,11 +32,10 @@ echo "--------------------------------------------------------------------------
 echo "                            Installing Other Stuff                               "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
-curl -sSL https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository | sudo bash  # Uv
+curl -LsSf https://astral.sh/uv/install.sh | sh                                                          # UV
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh                     # zoxide
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash                          # nvm
 nvm install node
-apt install -yq lazydocker
 
 # Install LazyDocker
 clear
@@ -46,6 +44,7 @@ echo "                         Installing from SNAP Store                       
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
 snap install snap-store postman ngrok mpv zoom-client rpi-imager PyCharm-community
+# snap install docker
 
 
 # Install Docker
