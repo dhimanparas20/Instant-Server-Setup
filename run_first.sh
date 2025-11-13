@@ -78,6 +78,17 @@ chmod +x install.sh
 cd ..
 rm -rf Matrix-grub-theme
 
+echo "---------------------------------------------------------------------------------"
+echo "                          Starting of installed Packages                         "
+echo "---------------------------------------------------------------------------------"
+sleep 0.5
+systemctl start tlp
+systemctl enable tlp
+systemctl enable tlp-sleep
+status tlp
+tlp-stat -s
+echo "================================================================================"
+
 
 # Clone Full Repo
 echo "---------------------------------------------------------------------------------"
