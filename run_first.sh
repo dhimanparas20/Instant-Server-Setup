@@ -103,6 +103,9 @@ chmod +x arduino-ide_2.3.6_Linux_64bit.AppImage
 mv arduino-ide_2.3.6_Linux_64bit.AppImage /opt/
 ln -sf /opt/arduino-ide_2.3.6_Linux_64bit.AppImage /usr/local/bin/arduino-ide
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules
+echo "=========================| Black Binary |========================================"
+pipx install black
+which black
 
 
 # Clone Full Repo
