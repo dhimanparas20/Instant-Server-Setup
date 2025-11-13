@@ -108,9 +108,10 @@ alias migrate="uv run python3 manage.py migrate"
 alias makemigrations="uv run python3 manage.py makemigrations"
 
 
-alias down="cd && cd Downloads*"
-alias desk="cd && cd Desktop"
-alias proj="cd && cd Desktop && cd Projects"
+alias down="z ~/Downloads*"
+alias desk="z ~/Desktop"
+alias work="z ~/Work"
+alias proj="z ~/Work/Projects"
 
 clear
 echo "Hello GOD!"
