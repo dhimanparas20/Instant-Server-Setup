@@ -98,13 +98,17 @@ alias dcrestart="docker compose restart "
 alias dcexec="docker compose exec -it "
 alias dcipython="docker compose exec -it app ipython"
 
+# =================================
+# Django Commands
+# =================================
 alias py="python3"
 alias activate="python3 -m venv venv && source venv/bin/activate"
 alias runserver="uv run python3 manage.py runserver 0.0.0.0:5000  "
 alias migrate="uv run python3 manage.py migrate"
 alias makemigrations="uv run python3 manage.py makemigrations"
 
-alias down="cd && cd Downloa*"
+
+alias down="cd && cd Downloads*"
 alias desk="cd && cd Desktop"
 alias proj="cd && cd Desktop && cd Projects"
 
