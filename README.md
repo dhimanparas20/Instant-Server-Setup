@@ -42,15 +42,12 @@ Run this script to install some more Gui based Tools
 wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_optional.sh | sudo bash
 ```
 
-### Combined Step 2 in a Single Code Block
-Run this script to run all steps in a combined copy paste block
-
+### Combined Step 3-4 in a Single Code Block
 ```sh
-sudo apt install zsh -y 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-zsh run_second.sh
-rm -rf run_second.sh
+wget -q https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/dockerAlias.sh
+wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_second.sh | sudo bash
 wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_optional.sh | sudo bash
+rm -rf dockerAlias.sh
 sudo reboot
 ```
 
