@@ -34,6 +34,7 @@ Run the second setup script to configure Oh My Zsh extensions, set up aliases, a
 ```sh
 wget -q https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/dockerAlias.sh
 wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run_second.sh | sudo bash
+rm -rf dockerAlias.sh
 sudo reboot
 ```
 
