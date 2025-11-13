@@ -82,6 +82,7 @@ echo "--------------------------------------------------------------------------
 echo "                          Starting of installed Packages                         "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
+echo "===============================| TLP |============================================"
 # nano /etc/tlp.conf
 systemctl start tlp
 systemctl enable tlp
@@ -89,7 +90,12 @@ systemctl enable tlp-sleep
 systemctl restart tlp
 status tlp
 tlp-stat -s
-echo "================================================================================"
+echo "=========================| PLATFORM TOOLS |========================================"
+wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
+unzip -o platform-tools-latest-linux.zip
+sudo mv -f platform-tools /opt/
+sudo ln -sf /opt/platform-tools/adb /usr/local/bin/adb
+sudo ln -sf /opt/platform-tools/fastboot /usr/local/bin/fastboot
 
 
 # Clone Full Repo
