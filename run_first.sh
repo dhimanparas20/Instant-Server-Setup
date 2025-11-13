@@ -24,7 +24,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt update -q
 apt upgrade -yq
 add-apt-repository universe
-apt install -yq curl postgresql postgresql-contrib git snapd python3 python3-pip python3-venv fuse libfuse2 ufw dnsutils fastfetch net-tools htop btop nvtop grub-customizer gparted network-manager tlp tlp-rdw linux-headers-$(uname -r)
+apt install -yq curl postgresql postgresql-contrib git snapd python3 python3-pip python3-venv fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop nvtop grub-customizer gparted network-manager tlp tlp-rdw linux-headers-$(uname -r)
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Install Other Stuff
