@@ -23,7 +23,7 @@ export DEBIAN_FRONTEND=noninteractive
 # The Basics
 apt update -q
 apt upgrade -yq
-apt install -yq curl postgresql postgresql-contrib git snapd python3 python3-pip python3-venv ufw dnsutils neofetch net-tools htop network-manager
+apt install -yq curl postgresql postgresql-contrib git snapd python3 python3-pip python3-venv ufw dnsutils fastfetch net-tools htop network-manager
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Install LazyDocker
