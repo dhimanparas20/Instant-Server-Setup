@@ -8,8 +8,6 @@ echo "                                    Step 2                                
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
 set -e
-rm -rf run_first.sh && echo "run_first.sh deleted from home directory"
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 
 # Install Zsh plugins
 echo "---------------------------------------------------------------------------------"
@@ -18,6 +16,8 @@ echo "--------------------------------------------------------------------------
 sleep 0.5
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions
 sudo git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 
 # Define the file path for .zshrc
@@ -29,7 +29,7 @@ echo "--------------------------------------------------------------------------
 sleep 0.5
 
 # Replace the line that starts with 'plugins=' to add new plugins
-sed -i 's/^plugins=(git)/plugins=(git sudo history encode64 copypath zsh-autosuggestions zsh-syntax-highlighting)/' "$ZSHRC_FILE"
+sed -i 's/^plugins=(git)/plugins=(git sudo history encode64 copypath zsh-autosuggestions zsh-completions zsh-autocompletecommand-not-found extract docker colored-man-pages alias-finder zsh-syntax-highlighting)/' "$ZSHRC_FILE"
 
 # Replace the line that starts with 'ZSH_THEME="roborussel"' with 'ZSH_THEME="bira"'
 sed -i 's/^ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/' "$ZSHRC_FILE"
