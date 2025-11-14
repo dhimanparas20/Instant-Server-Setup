@@ -90,7 +90,7 @@ echo "===============================| TLP |====================================
 sudo systemctl start tlp
 sudo systemctl enable tlp
 sudo systemctl restart tlp
-systemctl daemon-reload
+sudo systemctl daemon-reload
 sudo systemctl status tlp
 tlp-stat -s
 echo -e "\n\e[32m| DONE |\e[0m\n"
