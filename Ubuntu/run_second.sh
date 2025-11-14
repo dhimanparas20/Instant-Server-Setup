@@ -35,8 +35,10 @@ sed -i 's/^plugins=(git)/plugins=(git sudo history encode64 copypath zsh-autosug
 sed -i 's/^ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/' "$ZSHRC_FILE"
 
 # Adding Docker Alias
-cat dockerAlias.sh >> ~/.zshrc
-rm -rf dockerAlias.sh
+if [[ -f dockerAlias.sh ]]; then
+    cat dockerAlias.sh >> "$HOME/.zshrc"
+    rm -f dockerAlias.sh
+fi
 
 # Reload the .zshrc file to apply the changes immediately
 source "$ZSHRC_FILE"

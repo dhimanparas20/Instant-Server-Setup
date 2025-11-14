@@ -26,8 +26,10 @@ sleep 0.5
 sed -i 's/^plugins=(git)/plugins=(git sudo history encode64 copypath zsh-autosuggestions zsh-completions zsh-autocompletecommand-not-found extract docker colored-man-pages alias-finder zsh-syntax-highlighting)/' "$ZSHRC_FILE"
 sed -i 's/^ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/' "$ZSHRC_FILE"
 
-cat dockerAlias.sh >> ~/.zshrc
-rm -rf dockerAlias.sh
+if [[ -f dockerAlias.sh ]]; then
+    cat dockerAlias.sh >> "$HOME/.zshrc"
+    rm -f dockerAlias.sh
+fi
 
 source "$ZSHRC_FILE"
 
