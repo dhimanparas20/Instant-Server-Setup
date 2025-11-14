@@ -1,198 +1,209 @@
-# Instant Server Setup
+# **Instant Server Setup**
 
-## Overview
+A fully automated, multi-distribution server setup toolkit designed to configure your system with essential tools, developer utilities, Docker rootless mode, Zsh, Oh-My-Zsh, plugins, themes, aliases, and optional desktop utilities — all in minutes.
 
-**Instant Server Setup** is a universal, automated solution for quickly configuring a fresh Linux server (Ubuntu, Debian, Fedora, or Arch) with all essential developer tools, Docker, Oh My Zsh, productivity aliases, and optional GUI utilities.  
-It is designed for developers, sysadmins, and power users who want a ready-to-use environment in minutes, not hours.
+This project supports:
 
----
+* **Ubuntu**
+* **Debian**
+* **Fedora**
+* **Arch Linux**
 
-## What Does This Script Do?
+Each distro has **two scripts**:
 
-- **Automates the installation** of all core packages, developer tools, and system utilities.
-- **Configures Docker** and Docker Compose for containerized development.
-- **Sets up Oh My Zsh** with powerful plugins and themes for a modern shell experience.
-- **Adds a suite of useful aliases** (including advanced Docker and Git shortcuts).
-- **Optionally installs GUI tools** (editors, Postman, Zoom, etc.) for desktop environments.
-- **Works on Ubuntu, Debian, Fedora, and Arch Linux**—just specify your distro and setup stage.
+| Script              | Purpose                                                  |
+| ------------------- | -------------------------------------------------------- |
+| `setup_<distro>.sh` | Main installation & system configuration                 |
+| `run_optional.sh`   | Optional heavy tools, GUI apps, utilities, theming, etc. |
 
----
+And one universal top-level launcher:
 
-## Why Use This Script?
+```
+run.sh
+```
 
-- **Saves hours** of manual setup and configuration.
-- **Ensures consistency** across multiple machines or team members.
-- **Reduces errors** by automating repetitive tasks.
-- **Easy to extend** or customize for your own workflow.
-
----
-
-## What Gets Installed?
-
-Depending on your distro and the setup stage, the script installs:
-
-- **Core developer tools:** `git`, `curl`, `python3`, `pipx`, `tmate`, `ufw`, `htop`, `btop`, `network tools`, `unzip`, `wget`, etc.
-- **Docker & Docker Compose:** For containerized development.
-- **Oh My Zsh:** With plugins like autosuggestions, syntax highlighting, completions, and the Powerlevel10k theme.
-- **Aliases:** For Docker, Git, SSH, and more (see [`dockerAlias.sh`](./Ubuntu/dockerAlias.sh) for details).
-- **Optional GUI tools:** Postman, Zoom, Snap Store, PyCharm Community, Notepad++, MPV, RPi Imager, GParted, Grub Customizer, and more.
-- **System enhancements:** TLP for power management, fastfetch, zoxide, uv, and more.
+The launcher detects/asks your distro, installs Oh-My-Zsh for main scripts, and executes the correct script using Zsh.
 
 ---
 
-## Folder Structure
+## **📁 Repository Structure**
 
 ```
 Instant-Server-Setup/
-├── Arch/
-│   ├── run_first.sh
-│   ├── run_optional.sh
-│   └── run_second.sh
-├── Debian/
-│   ├── run_first.sh
-│   ├── run_optional.sh
-│   └── run_second.sh
-├── Fedora/
-│   ├── run_first.sh
-│   ├── run_optional.sh
-│   └── run_second.sh
+│
 ├── Ubuntu/
-│   ├── run_first.sh
-│   ├── run_optional.sh
-│   └── run_second.sh
-├── dockerAlias.sh
-├── run_super.sh
-├── run.sh
+│   ├── setup_ubuntu.sh
+│   └── run_optional.sh
+│
+├── Debian/
+│   ├── setup_debian.sh
+│   └── run_optional.sh
+│
+├── Fedora/
+│   ├── setup_fedora.sh
+│   └── run_optional.sh
+│
+├── Arch/
+│   ├── setup_arch.sh
+│   └── run_optional.sh
+│
+├── dockerAlias.sh              # Shared docker aliases (automatically appended)
+├── run.sh                      # Main launcher script
 └── README.md
 ```
 
 ---
 
-## How To Use
+## **🚀 What This Toolkit Does**
 
-### **IMPORTANT Step After First Script Gets Executed**
-Once the server reboots, reconnect the server:
-Then, install Oh My Zsh using the following command:
+Every distro's *main script* performs:
 
-```sh
-sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+* System update + dependencies
+* Docker rootless mode setup
+* Zsh + Oh-My-Zsh plugins
+* Powerlevel10k theme
+* Git configuration
+* Py tools (pipx, uv, zoxide, lazydocker, etc.)
+* Hardware tools (tlp, power mgmt, fuse, htop, etc.)
+* Snap / DNF / Pacman equivalents
+* Sets up aliases from `dockerAlias.sh`
+* One-command post-install ready-to-use system
+
+The *optional script* installs:
+
+* NVM + Node
+* Snap apps (Postman, PyCharm, MPV, Zoom, Notepad++ …)
+* GRUB theming
+* Android platform tools
+* Arduino IDE + udev rules
+* Black formatter
+* MongoDB Compass
+* And more high-level optional tools
+
+---
+
+# **⚡ Quick Start: Easiest Method**
+
+You can run this entire system in **one command**:
+
+## **Method 1 — Run using curl/wget (recommended)**
+
+### **Using curl:**
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh)"
 ```
 
-### **Method 1: One-Liner Automated Setup (Recommended)**
-You can bootstrap the entire setup with a single command.
-This will download and run a helper script that:
-- Clones the repository (if not already present)
-- Enters the directory
-- Makes all necessary scripts executable
-- Prompts you to select your Linux distribution and setup stage
-- Runs the appropriate setup script for you
-Run this command:
+### **Using wget:**
 
-```sh
-wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/run.sh | sudo bash
+```bash
+sh -c "$(wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh)"
 ```
-What happens next?
-- If the Instant-Server-Setup directory does not exist, it will be cloned.
-- If you are already inside the directory, it will just set permissions and proceed.
-- You will be prompted to select your distro (Arch, Debian, Fedora, or Ubuntu) and the setup stage (first, second, or opt).
-- The script will then run the correct setup for your choices.
 
-### **Method 2: Manual Setup**
-### **Step 1: Clone the Repository**
+✔ Automatically clones repo
+✔ Lets you pick your distro
+✔ Lets you pick Main or Optional script
+✔ Installs Zsh + Oh-My-Zsh if required
+✔ Runs scripts using Zsh
 
-```sh
+---
+
+## **Method 2 — Manual Clone**
+
+```bash
 git clone https://github.com/dhimanparas20/Instant-Server-Setup.git
 cd Instant-Server-Setup
+chmod +x run.sh
+./run.sh
 ```
 
-### **Step 2: Make the Master Script Executable**
-
-```sh
-chmod +x run_super.sh
-```
-
-### **Step 3: Run the Setup Script**
-
-You must specify **both** your distro and the setup stage:
-
-- `-d` for distro: `Ubuntu`, `Debian`, `Fedora`, or `Arch`
-- `-v` for variant: `first`, `second`, or `opt`
-
-#### **Examples:**
-
-**Initial setup for Ubuntu:**
-```sh
-sudo ./run_super.sh -d Ubuntu -v first
-```
-
-**INSTALL OH MY SH:**
-```sh
-sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
-**Install Oh My Zsh plugins and aliases for Fedora:**
-```sh
-sudo ./run_super.sh -d Fedora -v second
-```
-
-**Install optional GUI tools for Arch:**
-```sh
-sudo ./run_super.sh -d Arch -v opt
-```
-
-**You must run each stage in order for a complete setup.**
+Same workflow: distro selection → script selection → execution.
 
 ---
 
-## **What Each Stage Does**
+# **💡 How The Launcher Works (run.sh)**
 
-### **Stage 1: `first`**
-- Updates your system and installs all core developer tools and dependencies.
-- Installs Docker and configures your user for Docker access.
-- Sets up basic system utilities and security tools.
-- Prepares your system for further configuration.
-- **Reboots the system at the end.**
+The launcher will:
 
-### **Stage 2: `second`**
-- Installs Oh My Zsh (if not already installed).
-- Adds powerful Zsh plugins and the Powerlevel10k theme.
-- Appends a comprehensive set of Docker, Git, and productivity aliases to your `.zshrc`.
-- Finalizes your shell environment for productivity.
+1. Detect if you're already inside the repository
+2. Otherwise clone the repo
+3. Ask which distro you're on
+4. Ask whether you want:
 
-### **Stage 3: `opt`**
-- Installs optional GUI and desktop tools (Postman, Snap Store, PyCharm, Zoom, GParted, etc.).
-- Installs additional developer utilities and power management tools.
-- Sets up Android platform tools and Arduino IDE.
-- Applies extra system tweaks and enhancements.
+   * **1 – Main Script**
+   * **2 – Optional Script**
+5. If “Main” is chosen:
 
----
+   * Runs
 
-## **Requirements & Notes**
+     ```bash
+     sudo apt install zsh -y && \
+     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+     ```
 
-- **Run as root or with sudo** for all stages to ensure all packages and configurations are applied.
-- **Internet connection** is required for downloading packages and scripts.
-- **Reboot** after each stage if prompted.
-- **Oh My Zsh** will prompt you for configuration on first launch—follow the on-screen instructions.
-- **Aliases** are appended to your `.zshrc` and will be available in new terminal sessions.
+     (Auto-adjusted for Debian/Ubuntu only)
+6. Runs the chosen script using **Zsh**
+
+This yields a clean, consistent experience across all distros.
 
 ---
 
-## **Customization**
+# **🛡 Requirements**
 
-- You can edit the scripts in each distro folder to add or remove packages as needed.
-- The `dockerAlias.sh` file contains all the custom aliases and can be extended for your workflow.
+* A supported Linux distribution:
+
+  * Ubuntu ≥ 20.04
+  * Debian ≥ 11
+  * Fedora ≥ 38
+  * Arch (rolling)
+* Internet connection
+* Ability to use `sudo`
+* Fresh system recommended but not required
 
 ---
 
-## **Troubleshooting**
+# **⚠ Important Notes**
 
-- If you encounter errors, check the output for missing dependencies or permission issues.
-- Ensure you are running the script with the correct parameters and as root/sudo.
-- For issues with Docker permissions, log out and log back in after installation.
+### ✔ Scripts are safe & idempotent
+
+They skip already-installed packages and skip git clones if directories exist.
+
+### ✔ Rootless Docker setup
+
+Main scripts configure rootless Docker automatically.
+
+### ✔ Zsh is enforced
+
+All scripts are executed **using Zsh**, not Bash.
+
+### ✔ Snap support
+
+Fedora / Arch scripts add snap support where needed.
 
 ---
 
-## **License**
+# **📦 Included Tools / Highlights**
 
-This project is open-source.  
-yFeel free to modify and distribute it as per your requirements.
+* **Docker Rootless**
+* **Oh-My-Zsh** + plugins
+* **Powerlevel10k theme**
+* **Pipx, uv, zoxide, lazydocker**
+* **HTOP, Btop, Neofetch, TLP, FUSE**
+* **Git global config**
+* **Node + NVM (optional script)**
+* **Platform Tools, Arduino IDE**
+* **MongoDB Compass**
+* **Snap-based apps (optional)**
+
+---
+
+# **🤝 Contributing**
+
+PRs are welcome!
+If you want to add another distro or improve script modularity, feel free to open a pull request.
+
+---
+
+# **📜 License**
+
+MIT License — use freely for personal or production systems.
