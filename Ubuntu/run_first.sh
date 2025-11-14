@@ -24,7 +24,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt update -q
 apt upgrade -yq
 add-apt-repository universe
-apt install -yq curl postgresql lazydocker postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop network-manager tlp tlp-rdw linux-headers-$(uname -r)
+apt install -yq curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop network-manager tlp tlp-rdw linux-headers-$(uname -r)
 pipx ensurepath
 
 # Install Other Stuff
@@ -32,6 +32,7 @@ echo "--------------------------------------------------------------------------
 echo "                            Installing Other Stuff                               "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
+curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash #Lazydocker
 curl -LsSf https://astral.sh/uv/install.sh | sh                                                          # UV
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh                     # zoxide
 
