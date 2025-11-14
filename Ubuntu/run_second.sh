@@ -37,7 +37,7 @@ sleep 0.5
 ZSHRC_FILE="$HOME/.zshrc"
 
 # Replace the line that starts with 'plugins=' to add new plugins
-sed -i 's/^plugins=(git)/plugins=(git sudo history encode64 copypath zsh-autosuggestions zsh-completions zsh-autocompletecommand-not-found extract docker colored-man-pages alias-finder zsh-syntax-highlighting)/' "$ZSHRC_FILE"
+sed -i 's/^plugins=(git)/plugins=(git sudo history encode64 copypath zsh-autosuggestions zsh-completions zsh-autocomplete command-not-found extract docker colored-man-pages alias-finder zsh-syntax-highlighting)/' "$ZSHRC_FILE"
 
 # Replace the line that starts with 'ZSH_THEME="roborussel"' with 'ZSH_THEME="bira"'
 sed -i 's/^ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/' "$ZSHRC_FILE"
