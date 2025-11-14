@@ -26,7 +26,7 @@ export DNF_YUM_AUTO_YES=1
 
 # Base system update
 sudo dnf -y update
-sudo dnf install -y  curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip python3-pipx python3-virtualenv fuse fuse-libs tmateufw bind-utils dnsutils equivalent neofetch net-tools htop btop NetworkManager tlp tlp-rdw kernel-headers kernel-devel
+sudo dnf install -y  curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip python3-pipx python3-virtualenv fuse fuse-libs tmateufw bind-utils dnsutils equivalent fastfetch net-tools htop btop NetworkManager tlp tlp-rdw kernel-headers kernel-devel
 
 # # Helper: install rpm/dnf package if available
 # install_pkg_if_available() {
@@ -235,6 +235,7 @@ echo -e "\e[34m                                     DONE                        
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo "Open a new terminal or run:  source ~/.zshrc"
 echo -ne "\nDo you want to reboot now? (y/yes to reboot): "
+fastfetch
 read answer
 
 case "$answer" in
