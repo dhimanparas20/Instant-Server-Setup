@@ -1,96 +1,141 @@
-#!/bin/bash
-# The script must be run using sudo
-# The script also sets up some configurations wherever needed
+#!/usr/bin/env zsh
 
-# Check if the script is run with sudo
-if [ "$(id -u)" -ne 0 ]; then
-    echo "Please run this script with sudo:"
-    echo "sudo ./run_optional.sh"
-    exit 1
-fi
+# Strict mode for zsh
+set -eu
+set -o pipefail
 
-# Start
+# Error handler for zsh
+trap 'echo -e "\e[31mError occurred at line $LINENO. Exiting.\e[0m"' ZERR
+
+
 clear
-echo "---------------------------------------------------------------------------------"
+echo "\n---------------------------------------------------------------------------------"
 echo "                            Installing Dependencies                              "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
-set -e
 
 # Disable interactive prompts
 export DEBIAN_FRONTEND=noninteractive
 
-# The Basics
-apt update -q
-apt install -yq nvtop grub-customizer gparted
+# The Basics (system-wide)
+sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer
+sudo apt update -q
+sudo apt install -yq grub-customizer nvtop gparted unzip 
 
-# Install Other Stuff
-echo "---------------------------------------------------------------------------------"
+
+echo "\n---------------------------------------------------------------------------------"
 echo "                            Installing Other Stuff                               "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash                          # nvm
+
+# NVM + Node (per-user)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+# Load nvm into this script session so `nvm install` works
+if [ -s "$HOME/.nvm/nvm.sh" ]; then
+    # shellcheck disable=SC1090
+    source "$HOME/.nvm/nvm.sh"
+elif [ -s "/usr/share/nvm/init-nvm.sh" ]; then
+    # some distros put it here
+    # shellcheck disable=SC1091
+    source "/usr/share/nvm/init-nvm.sh"
+fi
+
 nvm install node
 
-# Install LazyDocker
-echo "---------------------------------------------------------------------------------"
+
+echo "\n---------------------------------------------------------------------------------"
 echo "                         Installing from SNAP Store                              "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
-snap install snap-store postman mpv zoom-client rpi-imager PyCharm-community notepad-plus-plus
-# snap install docker
+
+# Optional GUI tools via snap
+SNAPS=(snap-store postman mpv zoom-client rpi-imager notepad-plus-plus)
+for s in "${SNAPS[@]}"; do
+    if snap list "$s" &>/dev/null; then
+        echo -e "\n\e[32m------------------| snap '$s' already installed, skipping |----------------------\e[0m"
+    else
+        echo -e "\n\e[34m------------------| INSTALLING snap $s |----------------------\e[0m"
+        sudo snap install "$s"
+    fi
+done
+echo -e "\n\e[34m------------------| INSTALLING Pycharm Community $s |----------------------\e[0m"
+sudo snap install pycharm-community --classic
+echo -e "\n\e[32m| Installing From Snap Store DONE |\e[0m\n"
 
 
-
-# Store git passwords and add user signature
-echo "---------------------------------------------------------------------------------"
-echo "                                 Adding Git Configs                              "
-echo "---------------------------------------------------------------------------------"
-sleep 0.5
-git config --global user.name "dhimanparas20"
-git config --global user.email "dhimanparas20@gmail.com"
-git config --global credential.helper cache
-git config --global credential.helper store\]
-
-
-echo "---------------------------------------------------------------------------------"
+echo "\n---------------------------------------------------------------------------------"
 echo "                              Installing GRUB THEME                              "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
+
+if [ -d Matrix-grub-theme ]; then
+    rm -rf Matrix-grub-theme
+fi
+
 git clone https://github.com/yeyushengfan258/Matrix-grub-theme.git
 cd Matrix-grub-theme
 chmod +x install.sh
-./install.sh -t window
+# install script will change GRUB theme (needs root)
+sudo ./install.sh -t window
 cd ..
 rm -rf Matrix-grub-theme
 
-echo "---------------------------------------------------------------------------------"
-echo "                          Starting of installed Packages                         "
-echo "---------------------------------------------------------------------------------"
-sleep 0.5
+echo "\n---------------------------------------------------------------------------------"
 echo "===============================| TLP |============================================"
-# nano /etc/tlp.conf
-systemctl start tlp
-systemctl enable tlp
-systemctl enable tlp-sleep
-systemctl restart tlp
-status tlp
+# TLP service management (system-wide)
+sudo systemctl start tlp
+sudo systemctl enable tlp
+sudo systemctl enable tlp-sleep
+sudo systemctl restart tlp
+sudo systemctl status tlp
 tlp-stat -s
 
+echo "\n---------------------------------------------------------------------------------"
 echo "=========================| PLATFORM TOOLS |========================================"
-wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
+wget -q https://dl.google.com/android/repository/platform-tools-latest-linux.zip
 unzip -o platform-tools-latest-linux.zip
-mv -f platform-tools /opt/
-ln -sf /opt/platform-tools/adb /usr/local/bin/adb
-ln -sf /opt/platform-tools/fastboot /usr/local/bin/fastboot
+rm -f platform-tools-latest-linux.zip
+sudo mv -f platform-tools /opt/
+sudo ln -sf /opt/platform-tools/adb /usr/local/bin/adb
+sudo ln -sf /opt/platform-tools/fastboot /usr/local/bin/fastboot
 
+echo "\n---------------------------------------------------------------------------------"
 echo "=========================| ARDUINO IDE |========================================"
-wget https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.6_Linux_64bit.AppImage
+wget -q https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.6_Linux_64bit.AppImage
 chmod +x arduino-ide_2.3.6_Linux_64bit.AppImage
-mv arduino-ide_2.3.6_Linux_64bit.AppImage /opt/
-ln -sf /opt/arduino-ide_2.3.6_Linux_64bit.AppImage /usr/local/bin/arduino-ide
-echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules
+sudo mv arduino-ide_2.3.6_Linux_64bit.AppImage /opt/
+sudo ln -sf /opt/arduino-ide_2.3.6_Linux_64bit.AppImage /usr/local/bin/arduino-ide
+echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
 
+echo "\n---------------------------------------------------------------------------------"
 echo "=========================| Black Binary |========================================"
 pipx install black
-which black
+which black || echo "black not in PATH yet (open a new shell or ensure pipx bin dir is in PATH)"
+
+echo "\n---------------------------------------------------------------------------------"
+echo "=========================| Mongo DB Compass |========================================"
+wget https://downloads.mongodb.com/compass/mongodb-compass_1.46.10_amd64.deb
+sudo dpkg -i mongodb-compass_1.46.10_amd64.deb
+sudo apt-get install -f # This installs required compass dependencies
+rm -rf mongodb-compass_1.46.10_amd64.deb
+
+
+echo "\n---------------------------------------------------------------------------------"
+echo "                                     DONE                                        "
+echo "---------------------------------------------------------------------------------"
+echo "You can now:"
+echo "  - open a new terminal for nvm/node & black to be on PATH,"
+echo "  - or reboot later with: sudo reboot"
+echo -ne "\nDo you want to reboot now? (y/yes to reboot): "
+read answer
+
+case "$answer" in
+    y|Y|yes|YES)
+        echo "Rebooting..."
+        sudo reboot
+        ;;
+    *)
+        echo "Skipping reboot. You can reboot later with: sudo reboot"
+        ;;
+esac
