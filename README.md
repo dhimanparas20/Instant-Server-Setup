@@ -94,7 +94,9 @@ You must specify **both** your distro and the setup stage:
 Once the server reboots, reconnect the server:
 Then, install Oh My Zsh using the following command:
 
-- sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```sh
+sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
 #### **Examples:**
 
