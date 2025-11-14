@@ -69,6 +69,26 @@ Instant-Server-Setup/
 
 ## How To Use
 
+### **Method 1: One-Liner Automated Setup (Recommended)**
+You can bootstrap the entire setup with a single command.
+This will download and run a helper script that:
+- Clones the repository (if not already present)
+- Enters the directory
+- Makes all necessary scripts executable
+- Prompts you to select your Linux distribution and setup stage
+- Runs the appropriate setup script for you
+Run this command:
+
+```sh
+wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/run.sh | sudo bash
+```
+What happens next?
+- If the Instant-Server-Setup directory does not exist, it will be cloned.
+- If you are already inside the directory, it will just set permissions and proceed.
+- You will be prompted to select your distro (Arch, Debian, Fedora, or Ubuntu) and the setup stage (first, second, or opt).
+- The script will then run the correct setup for your choices.
+
+### **Method 2: Manual Setup**
 ### **Step 1: Clone the Repository**
 
 ```sh
