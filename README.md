@@ -90,6 +90,12 @@ You must specify **both** your distro and the setup stage:
 - `-d` for distro: `Ubuntu`, `Debian`, `Fedora`, or `Arch`
 - `-v` for variant: `first`, `second`, or `opt`
 
+### **Step After First Script Gets Executed**
+Once the server reboots, reconnect the server:
+Then, install Oh My Zsh using the following command:
+
+- sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 #### **Examples:**
 
 **Initial setup for Ubuntu:**
@@ -162,4 +168,4 @@ sudo ./run_super.sh -d Arch -v opt
 ## **License**
 
 This project is open-source.  
-Feel free to modify and distribute it as per your requirements.
+yFeel free to modify and distribute it as per your requirements.
