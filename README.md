@@ -84,11 +84,16 @@ The *optional script* installs:
 
 # **⚡ Quick Start: Easiest Method**
 
+## Prerequirement
+zsh and Oh my Zsh must be there
+NOTE: All the scripts must be run after you are using Oh My ZSH
+```bash
+sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
 ## **Method 1 — Run using curl/wget (recommended)**
 
 ```bash
-sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 curl -fsSL https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh
 chmod +x run.sh
 ./run.sh
@@ -99,7 +104,6 @@ chmod +x run.sh
 ## **Method 2 — Manual Clone**
 
 ```bash
-sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/dhimanparas20/Instant-Server-Setup.git
 cd Instant-Server-Setup
 chmod +x run.sh
