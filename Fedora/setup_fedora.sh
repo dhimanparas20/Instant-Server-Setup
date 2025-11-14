@@ -26,57 +26,56 @@ export DNF_YUM_AUTO_YES=1
 
 # Base system update
 sudo dnf -y update
-sudo dnf install -y  curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip python3-pipx python3-virtualenv fuse fuse-libs tmateufw bind-utils dnsutils equivalent fastfetch net-tools htop btop NetworkManager tlp tlp-rdw kernel-headers kernel-devel
+#sudo dnf install -y  curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip python3-pipx python3-virtualenv fuse fuse-libs tmateufw bind-utils dnsutils equivalent fastfetch net-tools htop btop NetworkManager tlp tlp-rdw kernel-headers kernel-devel
 
-# # Helper: install rpm/dnf package if available
-# install_pkg_if_available() {
-#     local pkg="$1"
+# Helper: install rpm/dnf package if available
+install_pkg_if_available() {
+    local pkg="$1"
 
-#     # Check if package exists in repos
-#     if ! sudo dnf list --available "$pkg" &>/dev/null && ! rpm -q "$pkg" &>/dev/null; then
-#         echo -e "\n\e[33m------------------| Package '$pkg' not found on Fedora, skipping |----------------------\e[0m"
-#         return 0
-#     fi
+    # Check if package exists in repos
+    if ! sudo dnf list --available "$pkg" &>/dev/null && ! rpm -q "$pkg" &>/dev/null; then
+        echo -e "\n\e[33m------------------| Package '$pkg' not found on Fedora, skipping |----------------------\e[0m"
+        return 0
+    fi
 
-#     if rpm -q "$pkg" &>/dev/null; then
-#         echo -e "\n\e[32m------------------| $pkg already installed, skipping |----------------------\e[0m"
-#     else
-#         echo -e "\n\e[34m------------------| INSTALLING $pkg |----------------------\e[0m"
-#         sudo dnf install -y "$pkg"
-#     fi
-# }
+    if rpm -q "$pkg" &>/dev/null; then
+        echo -e "\n\e[32m------------------| $pkg already installed, skipping |----------------------\e[0m"
+    else
+        echo -e "\n\e[34m------------------| INSTALLING $pkg |----------------------\e[0m"
+        sudo dnf install -y "$pkg"
+    fi
+}
 
-# # Debian-style package set mapped to Fedora equivalents where needed
-# PKGS=(
-#     curl
-#     postgresql
-#     postgresql-contrib
-#     git
-#     uidmap
-#     snapd
-#     python3
-#     python3-pip
-#     python3-pipx
-#     python3-virtualenv
-#     fuse
-#     fuse-libs
-#     tmate
-#     ufw
-#     bind-utils       # dnsutils equivalent
-#     neofetch
-#     net-tools
-#     htop
-#     btop
-#     NetworkManager
-#     tlp
-#     tlp-rdw
-#     kernel-headers
-#     kernel-devel
-# )
+# Debian-style package set mapped to Fedora equivalents where needed
+PKGS=(
+    curl
+    postgresql
+    postgresql-contrib
+    git
+    snapd
+    python3
+    python3-pip
+    pipx
+    python3-virtualenv
+    fuse
+    fuse-libs
+    tmate
+    ufw
+    bind-utils       # dnsutils equivalent
+    neofetch
+    net-tools
+    htop
+    btop
+    NetworkManager
+    tlp
+    tlp-rdw
+    kernel-headers
+    kernel-devel
+)
 
-# for pkg in "${PKGS[@]}"; do
-#     install_pkg_if_available "$pkg"
-# done
+for pkg in "${PKGS[@]}"; do
+    install_pkg_if_available "$pkg"
+done
 
 echo -e "\n\e[32m| Base Packages DONE |\e[0m\n"
 
@@ -234,8 +233,8 @@ echo -e "\e[34m-----------------------------------------------------------------
 echo -e "\e[34m                                     DONE                                        \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo "Open a new terminal or run:  source ~/.zshrc"
-echo -ne "\nDo you want to reboot now? (y/yes to reboot): "
 fastfetch
+echo -ne "\nDo you want to reboot now? (y/yes to reboot): "
 read answer
 
 case "$answer" in
