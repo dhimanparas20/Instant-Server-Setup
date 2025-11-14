@@ -62,12 +62,21 @@ Instant-Server-Setup/
 │   └── run_second.sh
 ├── dockerAlias.sh
 ├── run_super.sh
+├── run.sh
 └── README.md
 ```
 
 ---
 
 ## How To Use
+
+### **IMPORTANT Step After First Script Gets Executed**
+Once the server reboots, reconnect the server:
+Then, install Oh My Zsh using the following command:
+
+```sh
+sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
 ### **Method 1: One-Liner Automated Setup (Recommended)**
 You can bootstrap the entire setup with a single command.
@@ -109,19 +118,16 @@ You must specify **both** your distro and the setup stage:
 - `-d` for distro: `Ubuntu`, `Debian`, `Fedora`, or `Arch`
 - `-v` for variant: `first`, `second`, or `opt`
 
-### **Step After First Script Gets Executed**
-Once the server reboots, reconnect the server:
-Then, install Oh My Zsh using the following command:
-
-```sh
-sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
 #### **Examples:**
 
 **Initial setup for Ubuntu:**
 ```sh
 sudo ./run_super.sh -d Ubuntu -v first
+```
+
+**INSTALL OH MY SH:**
+```sh
+sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
 **Install Oh My Zsh plugins and aliases for Fedora:**
