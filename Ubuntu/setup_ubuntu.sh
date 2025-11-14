@@ -78,7 +78,7 @@ echo -e "\e[34m                         Installing from SNAP Store              
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 sleep 0.5
 
-SNAPS=(ngrok docker)
+SNAPS=(ngrok)
 for s in "${SNAPS[@]}"; do
     if snap list "$s" &>/dev/null; then
         echo -e "\e[32m------------------| snap '$s' already installed, skipping |----------------------\e[0m"
@@ -89,14 +89,12 @@ for s in "${SNAPS[@]}"; do
 done
 echo -e "\n\e[32m| Installing From Snap Store DONE |\e[0m\n"
 
-
-echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
-echo -e "\e[34m                                Docker Rootless                                  \e[0m"
+echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
+echo -e "\e[34m                                 Installing Docker                               \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 sleep 0.5
-
-# Rootless docker should be run as your normal user, NOT with sudo
-dockerd-rootless-setuptool.sh install --force
+curl -fsSL https://get.docker.com | bash
+dockerd-rootless-setuptool.sh install
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
