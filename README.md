@@ -60,7 +60,6 @@ Instant-Server-Setup/
 │   ├── run_first.sh
 │   ├── run_optional.sh
 │   └── run_second.sh
-│   └── dockerAlias.sh
 ├── dockerAlias.sh
 ├── run_super.sh
 └── README.md
