@@ -8,9 +8,9 @@ set -o pipefail
 trap 'echo -e "\e[31mError occurred at line $LINENO. Exiting.\e[0m"' ZERR
 
 clear 
-echo -e "\n\n\e[32m-------------------------------------------------------------------------------------------\e[0m\n\n"
-echo -e "\e[32m================================| WELCOME TO THE SCRIPT |====================================\e[0m"
-echo -e "\n\n\e[32m-------------------------------------------------------------------------------------------\e[0m\n\n"
+echo -e "\n\e[32m-------------------------------------------------------------------------------------------\e[0m\n"
+echo -e "\e[32m                                 | WELCOME TO THE SCRIPT |                                  \e[0m"
+echo -e "\n\e[32m-------------------------------------------------------------------------------------------\e[0m\n\n"
 sleep 1.5
 
 GIT_USER="dhimanparas20"
@@ -21,6 +21,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # User's zshrc
 ZSHRC_FILE="$HOME/.zshrc"
+
 
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                            Installing Dependencies                              \e[0m"
@@ -55,6 +56,8 @@ done
 
 # Per-user
 pipx ensurepath
+echo -e "\n\e[32m| Installing Dependencies DONE |\e[0m\n"
+
 
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                            Installing Other Stuff                               \e[0m"
@@ -63,8 +66,12 @@ sleep 0.5
 
 # These remote installers expect bash / POSIX, and may sudo internally
 curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+echo -e "\n\e[32m| Installing LAZYDOCKER |\e[0m\n"
 curl -LsSf https://astral.sh/uv/install.sh | bash
+echo -e "\n\e[32m| Installing UV Done |\e[0m\n"
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+echo -e "\n\e[32m| Installing ZOXIDE DONE |\e[0m\n"
+
 
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                         Installing from SNAP Store                              \e[0m"
@@ -80,17 +87,8 @@ for s in "${SNAPS[@]}"; do
         sudo snap install "$s"
     fi
 done
+echo -e "\n\e[32m| Installing From Snap Store DONE |\e[0m\n"
 
-echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
-echo -e "\e[34m                                 Adding Git Configs                              \e[0m"
-echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
-sleep 0.5
-
-# Per-user git config (no sudo)
-git config --global user.name "$GIT_USER"
-git config --global user.email "$GIT_EMAIL"
-git config --global credential.helper cache
-git config --global credential.helper store
 
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                                Docker Rootless                                  \e[0m"
@@ -99,6 +97,8 @@ sleep 0.5
 
 # Rootless docker should be run as your normal user, NOT with sudo
 dockerd-rootless-setuptool.sh install --force
+echo -e "\n\e[32m| DONE |\e[0m\n"
+
 
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                         Cloning oh-my-zsh Extensions                            \e[0m"
@@ -129,6 +129,8 @@ clone_if_missing "https://github.com/zsh-users/zsh-completions.git"        "$ZSH
 
 # Theme
 clone_if_missing "https://github.com/romkatv/powerlevel10k.git"            "$ZSH_CUSTOM/themes/powerlevel10k"
+echo -e "\n\e[32m| DONE |\e[0m\n"
+
 
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                                   Editing .zshrc                                \e[0m"
@@ -154,6 +156,8 @@ if grep -q '^ZSH_THEME="robbyrussell"' "$ZSHRC_FILE" 2>/dev/null; then
 else
     echo 'Default ZSH_THEME="robbyrussell" not found, leaving theme as-is.'
 fi
+echo -e "\n\e[32m| DONE |\e[0m\n"
+
 
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                                Setting Up Aliases                               \e[0m"
@@ -166,9 +170,25 @@ if [ -f "$SCRIPT_DIR/dockerAlias.sh" ]; then
 else
     echo "dockerAlias.sh not found in $SCRIPT_DIR, skipping alias setup."
 fi
+echo -e "\n\e[32m| DONE |\e[0m\n"
+
 
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
-echo -e "\e[34m                                     DONE                                        \e[0m"
+echo -e "\e[34m                                 Adding Git Configs                              \e[0m"
+echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
+sleep 0.5
+
+# Per-user git config (no sudo)
+echo -e "\e[34m  Setting up Git COnfigs for $GIT_USER \e[0m"
+git config --global user.name "$GIT_USER"
+git config --global user.email "$GIT_EMAIL"
+git config --global credential.helper cache
+git config --global credential.helper store
+echo -e "\n\e[32m| DONE |\e[0m\n"
+
+
+echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
+echo -e "\e[34m                                     END                                         \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo "Open a new terminal or run:  source ~/.zshrc"
 echo "If you changed low-level stuff (kernel, headers, etc.), you can reboot later: sudo reboot"
