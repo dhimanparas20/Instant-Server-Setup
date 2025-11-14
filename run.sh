@@ -145,30 +145,28 @@ ensure_curl() {
   fi
 }
 
-ensure_zsh() {
-  if command -v zsh >/dev/null 2>&1; then
-    success "zsh already installed."
-    return
+# Just check requirements, do NOT install them
+check_zsh_requirements() {
+  local missing=0
+
+  if ! command -v zsh >/dev/null 2>&1; then
+    echo -e "\e[31m[ERROR]\e[0m zsh is not installed."
+    missing=1
   fi
 
-  info "zsh not found, installing..."
-  install_pkg "zsh"
-  success "zsh installed."
-}
-
-ensure_oh_my_zsh() {
-  if [[ -d "$HOME/.oh-my-zsh" ]]; then
-    success "Oh My Zsh already installed."
-    return
+  if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    echo -e "\e[31m[ERROR]\e[0m Oh My Zsh is not installed (expected at \$HOME/.oh-my-zsh)."
+    missing=1
   fi
 
-  info "Installing Oh My Zsh (non-interactive)..."
-  # Non-interactive install: don't change shell or run zsh immediately
-  RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
-    || error "Oh My Zsh installation failed."
-
-  success "Oh My Zsh installed."
+  if (( missing )); then
+    echo
+    echo "Please install zsh and Oh My Zsh first."
+    echo "For Debian/Ubuntu you can run:"
+    echo '  sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+    echo
+    exit 1
+  fi
 }
 
 build_script_path() {
@@ -197,8 +195,7 @@ select_distro
 select_script_type
 detect_pkg_manager
 ensure_curl
-ensure_zsh
-ensure_oh_my_zsh
+check_zsh_requirements
 build_script_path
 
 echo
