@@ -91,13 +91,13 @@ You can run this entire system in **one command**:
 ### **Using curl:**
 
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh)"
+curl -fsSL https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh | bash
 ```
 
 ### **Using wget:**
 
 ```bash
-sh -c "$(wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh)"
+wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh | bash
 ```
 
 ✔ Automatically clones repo
