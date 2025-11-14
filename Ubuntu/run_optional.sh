@@ -90,6 +90,7 @@ echo "===============================| TLP |====================================
 sudo systemctl start tlp
 sudo systemctl enable tlp
 sudo systemctl restart tlp
+systemctl daemon-reload
 sudo systemctl status tlp
 tlp-stat -s
 echo -e "\n\e[32m| DONE |\e[0m\n"
@@ -122,9 +123,9 @@ echo -e "\n\e[32m| DONE |\e[0m\n"
 echo "\n---------------------------------------------------------------------------------"
 echo "=========================| Mongo DB Compass |====================================="
 wget https://downloads.mongodb.com/compass/mongodb-compass_1.46.10_amd64.deb
-sudo apt-get install -f -y
+sudo apt install -f -y
 sudo dpkg -i mongodb-compass_1.46.10_amd64.deb
-sudo apt-get install -f -y
+sudo apt install -f -y
 rm -rf mongodb-compass_1.46.10_amd64.deb
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
