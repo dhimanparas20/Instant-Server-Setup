@@ -32,33 +32,36 @@ sudo apt install -yq ca-certificates curl gnupg lsb-release
 
 # NOTE: No "universe" on Debian, so we skip add-apt-repository here.
 sudo apt upgrade -yq
-
-PKGS=(
-    curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
+sudo apt install -yq curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
     fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop network-manager tlp tlp-rdw
     "linux-headers-$(uname -r)"
-)
 
-install_pkg_if_available() {
-    local pkg="$1"
+# PKGS=(
+#     curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
+#     fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop network-manager tlp tlp-rdw
+#     "linux-headers-$(uname -r)"
+# )
 
-    # Check if package name exists in the Debian repos
-    if ! apt-cache show "$pkg" &>/dev/null; then
-        echo -e "\n\e[33m------------------| Package '$pkg' not found on Debian, skipping |----------------------\e[0m"
-        return 0
-    fi
+# install_pkg_if_available() {
+#     local pkg="$1"
 
-    if dpkg -s "$pkg" &>/dev/null; then
-        echo -e "\n\e[32m------------------| $pkg already installed, skipping |----------------------\e[0m"
-    else
-        echo -e "\n\e[34m------------------| INSTALLING $pkg |----------------------\e[0m"
-        sudo apt install -yq "$pkg"
-    fi
-}
+#     # Check if package name exists in the Debian repos
+#     if ! apt-cache show "$pkg" &>/dev/null; then
+#         echo -e "\n\e[33m------------------| Package '$pkg' not found on Debian, skipping |----------------------\e[0m"
+#         return 0
+#     fi
 
-for pkg in "${PKGS[@]}"; do
-    install_pkg_if_available "$pkg"
-done
+#     if dpkg -s "$pkg" &>/dev/null; then
+#         echo -e "\n\e[32m------------------| $pkg already installed, skipping |----------------------\e[0m"
+#     else
+#         echo -e "\n\e[34m------------------| INSTALLING $pkg |----------------------\e[0m"
+#         sudo apt install -yq "$pkg"
+#     fi
+# }
+
+# for pkg in "${PKGS[@]}"; do
+#     install_pkg_if_available "$pkg"
+# done
 
 # Per-user
 pipx ensurepath
@@ -177,12 +180,14 @@ echo -e "\e[34m                                Setting Up Aliases               
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 sleep 0.5
 
-if [ -f "$SCRIPT_DIR/dockerAlias.sh" ]; then
-    echo "Appending dockerAlias.sh to $ZSHRC_FILE"
-    cat "$SCRIPT_DIR/dockerAlias.sh" >> "$ZSHRC_FILE"
+ALIAS_URL="https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/dockerAlias.sh"
+echo "Fetching docker aliases from: $ALIAS_URL"
+if curl -fsSL "$ALIAS_URL" >> "$ZSHRC_FILE"; then
+    echo "Appended remote dockerAlias.sh contents to $ZSHRC_FILE"
 else
-    echo "dockerAlias.sh not found in $SCRIPT_DIR, skipping alias setup."
+    echo "Failed to fetch dockerAlias.sh from GitHub, skipping alias setup."
 fi
+
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
