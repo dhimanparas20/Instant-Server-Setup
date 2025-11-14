@@ -38,21 +38,24 @@ sudo apt install -yq software-properties-common
 
 sudo add-apt-repository -y universe
 sudo apt upgrade -yq
-
-PKGS=(
-    curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
+sudo apt install -yq curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
     fuse tmate libfuse2 ufw dnsutils neofetch net-tools htop btop network-manager tlp tlp-rdw
     "linux-headers-$(uname -r)"
-)
 
-for pkg in "${PKGS[@]}"; do
-    if dpkg -s "$pkg" &>/dev/null; then
-        echo -e "\n\e[32m------------------| $pkg already installed, skipping |----------------------\e[0m"
-    else
-        echo -e "\n\e[34m------------------| INSTALLING $pkg |----------------------\e[0m"
-        sudo apt install -yq "$pkg"
-    fi
-done
+# PKGS=(
+#     curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
+#     fuse tmate libfuse2 ufw dnsutils neofetch net-tools htop btop network-manager tlp tlp-rdw
+#     "linux-headers-$(uname -r)"
+# )
+
+# for pkg in "${PKGS[@]}"; do
+#     if dpkg -s "$pkg" &>/dev/null; then
+#         echo -e "\n\e[32m------------------| $pkg already installed, skipping |----------------------\e[0m"
+#     else
+#         echo -e "\n\e[34m------------------| INSTALLING $pkg |----------------------\e[0m"
+#         sudo apt install -yq "$pkg"
+#     fi
+# done
 
 # Per-user
 pipx ensurepath
@@ -162,12 +165,14 @@ echo -e "\e[34m                                Setting Up Aliases               
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 sleep 0.5
 
-if [ -f "$SCRIPT_DIR/dockerAlias.sh" ]; then
-    echo "Appending dockerAlias.sh to $ZSHRC_FILE"
-    cat "$SCRIPT_DIR/dockerAlias.sh" >> "$ZSHRC_FILE"
+ALIAS_URL="https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/dockerAlias.sh"
+echo "Fetching docker aliases from: $ALIAS_URL"
+if curl -fsSL "$ALIAS_URL" >> "$ZSHRC_FILE"; then
+    echo "Appended remote dockerAlias.sh contents to $ZSHRC_FILE"
 else
-    echo "dockerAlias.sh not found in $SCRIPT_DIR, skipping alias setup."
+    echo "Failed to fetch dockerAlias.sh from GitHub, skipping alias setup."
 fi
+
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
