@@ -89,7 +89,6 @@ echo "===============================| TLP |====================================
 # TLP service management (system-wide)
 sudo systemctl start tlp
 sudo systemctl enable tlp
-sudo systemctl enable tlp-sleep
 sudo systemctl restart tlp
 sudo systemctl status tlp
 tlp-stat -s
