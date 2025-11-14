@@ -122,9 +122,9 @@ echo -e "\n\e[32m| DONE |\e[0m\n"
 echo "\n---------------------------------------------------------------------------------"
 echo "=========================| Mongo DB Compass |====================================="
 wget https://downloads.mongodb.com/compass/mongodb-compass_1.46.10_amd64.deb
-sudo apt get install -f
+sudo apt-get install -f -y
 sudo dpkg -i mongodb-compass_1.46.10_amd64.deb
-sudo apt get install -f # This installs required compass dependencies
+sudo apt-get install -f -y
 rm -rf mongodb-compass_1.46.10_amd64.deb
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
