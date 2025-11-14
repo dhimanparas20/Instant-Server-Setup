@@ -24,7 +24,8 @@ export DEBIAN_FRONTEND=noninteractive
 apt update -q
 apt upgrade -yq
 add-apt-repository universe
-apt install -yq curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop network-manager tlp tlp-rdw linux-headers-$(uname -r)
+apt install -yq curl postgresql postgresql-contrib git uidmap python3 python3-pip pipx python3-venv fuse tmate libfuse2 ufw dnsutils neofetch net-tools htop btop network-manager tlp tlp-rdw linux-headers-$(uname -r)
+apt install snapd -y
 pipx ensurepath
 
 # Install Other Stuff
