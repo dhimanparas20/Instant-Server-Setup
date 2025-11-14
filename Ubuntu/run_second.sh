@@ -56,3 +56,4 @@ echo "Please manually reboot the system once, using 'sudo reboot' "
 echo "You can delete This file After Reboot."
 echo "---------------------------------------------------------------------------------"
 sleep 5
+reboot
