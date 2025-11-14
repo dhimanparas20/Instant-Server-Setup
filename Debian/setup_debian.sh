@@ -68,7 +68,7 @@ echo -e "\n\e[32m| DONE |\e[0m\n"
 echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                            Installing Other Stuff                               \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
-#sleep 0.5
+sleep 0.5
 
 # These remote installers expect bash / POSIX, and may sudo internally
 curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
@@ -80,7 +80,7 @@ echo -e "\n\e[32m| DONE |\e[0m\n"
 echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                         Installing from SNAP Store                              \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
-#sleep 0.5
+sleep 0.5
 
 SNAPS=(ngrok)
 for s in "${SNAPS[@]}"; do
