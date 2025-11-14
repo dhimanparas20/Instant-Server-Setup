@@ -21,6 +21,7 @@ export DEBIAN_FRONTEND=noninteractive
 sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer
 sudo apt update -q
 sudo apt install -yq grub-customizer nvtop gparted unzip 
+echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
 echo "\n---------------------------------------------------------------------------------"
@@ -42,6 +43,7 @@ elif [ -s "/usr/share/nvm/init-nvm.sh" ]; then
 fi
 
 nvm install node
+echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
 echo "\n---------------------------------------------------------------------------------"
@@ -80,9 +82,10 @@ chmod +x install.sh
 sudo ./install.sh -t window
 cd ..
 rm -rf Matrix-grub-theme
+echo -e "\n\e[32m| DONE |\e[0m\n"
 
 echo "\n---------------------------------------------------------------------------------"
-echo "===============================| TLP |============================================"
+echo "===============================| TLP |==========================================="
 # TLP service management (system-wide)
 sudo systemctl start tlp
 sudo systemctl enable tlp
@@ -90,40 +93,46 @@ sudo systemctl enable tlp-sleep
 sudo systemctl restart tlp
 sudo systemctl status tlp
 tlp-stat -s
+echo -e "\n\e[32m| DONE |\e[0m\n"
 
 echo "\n---------------------------------------------------------------------------------"
-echo "=========================| PLATFORM TOOLS |========================================"
+echo "=========================| PLATFORM TOOLS |======================================="
 wget -q https://dl.google.com/android/repository/platform-tools-latest-linux.zip
 unzip -o platform-tools-latest-linux.zip
 rm -f platform-tools-latest-linux.zip
 sudo mv -f platform-tools /opt/
 sudo ln -sf /opt/platform-tools/adb /usr/local/bin/adb
 sudo ln -sf /opt/platform-tools/fastboot /usr/local/bin/fastboot
+echo -e "\n\e[32m| DONE |\e[0m\n"
 
 echo "\n---------------------------------------------------------------------------------"
-echo "=========================| ARDUINO IDE |========================================"
+echo "============================| ARDUINO IDE |======================================="
 wget -q https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.6_Linux_64bit.AppImage
 chmod +x arduino-ide_2.3.6_Linux_64bit.AppImage
 sudo mv arduino-ide_2.3.6_Linux_64bit.AppImage /opt/
 sudo ln -sf /opt/arduino-ide_2.3.6_Linux_64bit.AppImage /usr/local/bin/arduino-ide
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
+echo -e "\n\e[32m| DONE |\e[0m\n"
 
 echo "\n---------------------------------------------------------------------------------"
-echo "=========================| Black Binary |========================================"
+echo "==========================| Black Binary |======================================="
 pipx install black
 which black || echo "black not in PATH yet (open a new shell or ensure pipx bin dir is in PATH)"
+echo -e "\n\e[32m| DONE |\e[0m\n"
 
 echo "\n---------------------------------------------------------------------------------"
-echo "=========================| Mongo DB Compass |========================================"
+echo "=========================| Mongo DB Compass |====================================="
 wget https://downloads.mongodb.com/compass/mongodb-compass_1.46.10_amd64.deb
+sudo apt get install -f
 sudo dpkg -i mongodb-compass_1.46.10_amd64.deb
-sudo apt-get install -f # This installs required compass dependencies
+sudo apt get install -f # This installs required compass dependencies
 rm -rf mongodb-compass_1.46.10_amd64.deb
+echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
 echo "\n---------------------------------------------------------------------------------"
-echo "                                     DONE                                        "
-echo "---------------------------------------------------------------------------------"
+echo "                                     DONE                                         "
+echo "----------------------------------------------------------------------------------"
 echo "You can now:"
 echo "  - open a new terminal for nvm/node & black to be on PATH,"
 echo "  - or reboot later with: sudo reboot"
