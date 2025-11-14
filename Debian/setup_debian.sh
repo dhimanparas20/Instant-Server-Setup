@@ -32,9 +32,7 @@ sudo apt install -yq ca-certificates curl gnupg lsb-release
 
 # NOTE: No "universe" on Debian, so we skip add-apt-repository here.
 sudo apt upgrade -yq
-sudo apt install -yq curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
-    fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop network-manager tlp tlp-rdw
-    "linux-headers-$(uname -r)"
+sudo apt install -yq curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv tmate libfuse3-dev fuse3 ufw dnsutils neofetch net-tools htop btop network-manager tlp tlp-rdw "linux-headers-$(uname -r)"
 
 # PKGS=(
 #     curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
@@ -70,7 +68,7 @@ echo -e "\n\e[32m| DONE |\e[0m\n"
 echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                            Installing Other Stuff                               \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
-sleep 0.5
+#sleep 0.5
 
 # These remote installers expect bash / POSIX, and may sudo internally
 curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
@@ -82,7 +80,7 @@ echo -e "\n\e[32m| DONE |\e[0m\n"
 echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                         Installing from SNAP Store                              \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
-sleep 0.5
+#sleep 0.5
 
 SNAPS=(ngrok)
 for s in "${SNAPS[@]}"; do
@@ -92,7 +90,9 @@ for s in "${SNAPS[@]}"; do
         echo -e "\n\e[34m------------------| INSTALLING snap $s |----------------------\e[0m"
         sudo snap install "$s"
     fi
-doneecho -e "\n\e[32m| DONE |\e[0m\n"
+
+done
+echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
 echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
@@ -195,7 +195,7 @@ echo -e "\n\e[34m---------------------------------------------------------------
 echo -e "\e[34m                                     DONE                                        \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo "Open a new terminal or run:  source ~/.zshrc"
-fastfetch
+neofetch
 
 # Reboot prompt
 echo -ne "\nDo you want to reboot now? (y/yes to reboot): "
