@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/zsh
 # The script must be run using sudo
 # The script also sets up some configurations wherever needed
 
 # Check if the script is run with sudo
 if [ "$(id -u)" -ne 0 ]; then
     echo "Please run this script with sudo:"
-    echo "sudo ./run_first.sh"
+    echo "sudo zsh run_first.sh"
     exit 1
 fi
 
@@ -33,9 +33,9 @@ echo "--------------------------------------------------------------------------
 echo "                            Installing Other Stuff                               "
 echo "---------------------------------------------------------------------------------"
 sleep 0.5
-curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash #Lazydocker
+curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | zsh #Lazydocker
 curl -LsSf https://astral.sh/uv/install.sh | sh                                                          # UV
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh                     # zoxide
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | zsh                     # zoxide
 
 # Install LazyDocker
 echo "---------------------------------------------------------------------------------"
@@ -54,8 +54,7 @@ sleep 0.5
 wget -q https://get.docker.com -O install-docker.sh
 chmod +x install-docker.sh
 ./install-docker.sh
-rm install-docker.sh
-# dockerd-rootless-setuptool.sh install    
+rm install-docker.sh 
 
 
 # Store git passwords and add user signature
