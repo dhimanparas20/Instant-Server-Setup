@@ -23,7 +23,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ZSHRC_FILE="$HOME/.zshrc"
 
 
-echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
+echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                            Installing Dependencies                              \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 sleep 0.5
@@ -47,9 +47,9 @@ PKGS=(
 
 for pkg in "${PKGS[@]}"; do
     if dpkg -s "$pkg" &>/dev/null; then
-        echo -e "\e[32m------------------| $pkg already installed, skipping |----------------------\e[0m"
+        echo -e "\n\e[32m------------------| $pkg already installed, skipping |----------------------\e[0m"
     else
-        echo -e "\e[34m------------------| INSTALLING $pkg |----------------------\e[0m"
+        echo -e "\n\e[34m------------------| INSTALLING $pkg |----------------------\e[0m"
         sudo apt install -yq "$pkg"
     fi
 done
