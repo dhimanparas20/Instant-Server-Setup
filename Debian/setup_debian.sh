@@ -190,6 +190,7 @@ echo -e "\n\e[34m---------------------------------------------------------------
 echo -e "\e[34m                                     DONE                                        \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo "Open a new terminal or run:  source ~/.zshrc"
+fastfetch
 
 # Reboot prompt
 echo -ne "\nDo you want to reboot now? (y/yes to reboot): "
