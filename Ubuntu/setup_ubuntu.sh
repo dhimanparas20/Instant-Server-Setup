@@ -66,11 +66,11 @@ sleep 0.5
 
 # These remote installers expect bash / POSIX, and may sudo internally
 curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
-echo -e "\n\e[32m| Installing LAZYDOCKER |\e[0m\n"
+echo -e "\n\e[32m| Installing LAZYDOCKER Done |\e[0m\n"
 curl -LsSf https://astral.sh/uv/install.sh | bash
 echo -e "\n\e[32m| Installing UV Done |\e[0m\n"
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
-echo -e "\n\e[32m| Installing ZOXIDE DONE |\e[0m\n"
+echo -e "\n\e[32m| Installing ZOXIDE Done |\e[0m\n"
 
 
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
@@ -179,7 +179,7 @@ echo -e "\e[34m-----------------------------------------------------------------
 sleep 0.5
 
 # Per-user git config (no sudo)
-echo -e "\e[34m  Setting up Git COnfigs for $GIT_USER \e[0m"
+echo -e "\e[34mSetting up Git COnfigs for $GIT_USER \e[0m"
 git config --global user.name "$GIT_USER"
 git config --global user.email "$GIT_EMAIL"
 git config --global credential.helper cache
@@ -192,4 +192,15 @@ echo -e "\e[34m                                     END                         
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo "Open a new terminal or run:  source ~/.zshrc"
 echo "If you changed low-level stuff (kernel, headers, etc.), you can reboot later: sudo reboot"
-sleep 1
+echo -ne "\nDo you want to reboot now? (y/yes to reboot): "
+read answer
+
+case "$answer" in
+    y|Y|yes|YES)
+        echo "Rebooting..."
+        sudo reboot
+        ;;
+    *)
+        echo "Skipping reboot. You can reboot later with: sudo reboot"
+        ;;
+esac
