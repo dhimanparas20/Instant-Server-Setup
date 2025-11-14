@@ -85,8 +85,9 @@ The *optional script* installs:
 # **⚡ Quick Start: Easiest Method**
 
 ## Prerequirement
-zsh and Oh my Zsh must be there
-NOTE: All the scripts must be run after you are using Oh My ZSH
+- zsh and Oh my Zsh must be there
+- NOTE: All the scripts must be run after you are using Oh My ZSH
+
 ```bash
 sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
