@@ -84,33 +84,22 @@ The *optional script* installs:
 
 # **⚡ Quick Start: Easiest Method**
 
-You can run this entire system in **one command**:
 
 ## **Method 1 — Run using curl/wget (recommended)**
 
-### **Using curl:**
-
 ```bash
-curl -fsSL https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh | bash
+sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+curl -fsSL https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh
+chmod +x run.sh
+./run.sh
 ```
-
-### **Using wget:**
-
-```bash
-wget -qO- https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh | bash
-```
-
-✔ Automatically clones repo
-✔ Lets you pick your distro
-✔ Lets you pick Main or Optional script
-✔ Installs Zsh + Oh-My-Zsh if required
-✔ Runs scripts using Zsh
 
 ---
 
 ## **Method 2 — Manual Clone**
 
 ```bash
+sudo apt install zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/dhimanparas20/Instant-Server-Setup.git
 cd Instant-Server-Setup
 chmod +x run.sh
