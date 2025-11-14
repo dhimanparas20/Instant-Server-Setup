@@ -22,7 +22,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt update -q
 apt upgrade -yq
-add-apt-repository universe
+# add-apt-repository universe
 
 PKGS=(
     curl postgresql lazydocker postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
