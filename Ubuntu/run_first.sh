@@ -55,7 +55,7 @@ wget -q https://get.docker.com -O install-docker.sh
 chmod +x install-docker.sh
 ./install-docker.sh
 rm install-docker.sh
-dockerd-rootless-setuptool.sh install
+# dockerd-rootless-setuptool.sh install    
 
 
 # Store git passwords and add user signature
