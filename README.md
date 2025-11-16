@@ -96,9 +96,8 @@ sudo apt install git zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent
 ## **Method 1 — Run using curl/wget (recommended)**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh
-chmod +x run.sh
-./run.sh
+wget -q https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh
+chmod +x run.sh && ./run.sh
 ```
 
 ---
@@ -108,8 +107,7 @@ chmod +x run.sh
 ```bash
 git clone https://github.com/dhimanparas20/Instant-Server-Setup.git
 cd Instant-Server-Setup
-chmod +x run.sh
-./run.sh
+chmod +x run.sh && ./run.sh
 ```
 
 Same workflow: distro selection → script selection → execution.
