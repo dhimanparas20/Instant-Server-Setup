@@ -36,6 +36,8 @@ PKGS=(
     grub-customizer
     gparted
     unzip
+    fuse
+    fuse-libs
 )
 
 for pkg in "${PKGS[@]}"; do
