@@ -57,8 +57,6 @@ PKGS=(
     python3-pip
     pipx
     python3-virtualenv
-    fuse
-    fuse-libs
     tmate
     ufw
     bind-utils       # dnsutils equivalent
