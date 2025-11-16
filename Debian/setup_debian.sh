@@ -32,7 +32,7 @@ sudo apt install -yq ca-certificates curl gnupg lsb-release
 
 # NOTE: No "universe" on Debian, so we skip add-apt-repository here.
 sudo apt upgrade -yq
-sudo apt install -yq curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv tmate  ufw dnsutils neofetch net-tools htop btop network-manager tlp tlp-rdw "linux-headers-$(uname -r)"
+sudo apt install -yq curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv tmate  ufw dnsutils fastfetch net-tools htop btop network-manager tlp tlp-rdw "linux-headers-$(uname -r)"
 
 # PKGS=(
 #     curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
@@ -195,10 +195,10 @@ echo -e "\n\e[34m---------------------------------------------------------------
 echo -e "\e[34m                                     DONE                                        \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo "Open a new terminal or run:  source ~/.zshrc"
-neofetch
+fastfetch
 
 # Reboot prompt
-echo -ne "\nDo you want to reboot now? (y/yes to reboot): "
+echo -ne "\nDo you want to reboot now(RECOMMENDED)? (y/yes to reboot): "
 read answer
 
 case "$answer" in
