@@ -13,12 +13,6 @@ alias gadd="git add ."
 alias gcommit="git commit -m "
 alias gpush="git push "
 
-## Alias to all the servers
-alias raspi='sshpass -p "1212" ssh paras@ip'
-alias server="ssh -i '/location/to/key.pem' ubuntu@ip"
-alias server2='sshpass -p "password" ssh root@ip' 
-
-
 # =============================
 # Docker Container Management
 # =============================
@@ -112,6 +106,11 @@ alias down="z ~/Downloads*"
 alias desk="z ~/Desktop"
 alias work="z ~/Work"
 alias proj="z ~/Work/Projects"
+
+## Alias to all the servers
+alias raspi='sshpass -p "" ssh mst@raspi.local'
+alias server="ssh -i '/location/to/key.pem' ubuntu@ip"
+alias server2='sshpass -p "password" ssh root@ip' 
 
 clear
 echo "Hello GOD!"
