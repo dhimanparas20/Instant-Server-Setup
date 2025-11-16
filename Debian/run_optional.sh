@@ -21,7 +21,7 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt update -q
 
 # Packages that *should* exist on Debian; skip cleanly if not found
-sudo apt install -yq grub-customizer gparted unzip cmake libncurses5-dev libncursesw5-dev
+sudo apt install -yq grub-customizer gparted unzip cmake libncurses5-dev libncursesw5-dev libfuse3-dev fuse3
 
 # PKGS=(grub-customizer nvtop gparted unzip cmake libncurses5-dev libncursesw5-dev)
 # install_pkg_if_available() {
