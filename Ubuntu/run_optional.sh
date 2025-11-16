@@ -21,6 +21,7 @@ export DEBIAN_FRONTEND=noninteractive
 sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer
 sudo apt update -q
 sudo apt install -yq grub-customizer nvtop gparted unzip libfuse2 fuse
+sudo apt autoremove -y
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
