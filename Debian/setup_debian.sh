@@ -32,7 +32,7 @@ sudo apt install -yq ca-certificates curl gnupg lsb-release
 
 # NOTE: No "universe" on Debian, so we skip add-apt-repository here.
 sudo apt upgrade -yq
-sudo apt install -yq curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv tmate libfuse3-dev fuse3 ufw dnsutils neofetch net-tools htop btop network-manager tlp tlp-rdw "linux-headers-$(uname -r)"
+sudo apt install -yq curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv tmate  ufw dnsutils neofetch net-tools htop btop network-manager tlp tlp-rdw "linux-headers-$(uname -r)"
 
 # PKGS=(
 #     curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
