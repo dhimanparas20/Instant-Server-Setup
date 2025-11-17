@@ -1,5 +1,6 @@
 export PATH="$PATH:$HOME/bin"
 export PATH="$HOME/.local/bin:$PATH"
+eval "$(zoxide init zsh)"
 
 # System Aliases
 alias cls="clear"
@@ -115,5 +116,3 @@ alias server2='sshpass -p "password" ssh root@ip'
 clear
 echo "Hello GOD!"
 ls
-
-eval "$(zoxide init zsh)"
