@@ -60,7 +60,7 @@ PKGS=(
     tmate
     ufw
     bind-utils       # dnsutils equivalent
-    neofetch
+    fastfetch
     net-tools
     htop
     btop
