@@ -7,6 +7,12 @@ set -o pipefail
 # Error handler for zsh
 trap 'echo -e "\e[31mError occurred at line $LINENO. Exiting.\e[0m"' ZERR
 
+echo "\n---------------------------------------------------------------------------------"
+echo "install zoom raspberry postman from fedoras official store mpv"
+sleep 2
+# 
+
+
 clear
 echo "\n---------------------------------------------------------------------------------"
 echo "                     Installing Optional Dependencies (Fedora)                   "
@@ -45,6 +51,7 @@ for pkg in "${PKGS[@]}"; do
 done
 echo -e "\n\e[32m| Base Optional Packages DONE |\e[0m\n"
 
+
 echo "\n---------------------------------------------------------------------------------"
 echo "                            Installing Other Stuff                               "
 echo "---------------------------------------------------------------------------------"
@@ -76,7 +83,7 @@ if ! command -v snap &>/dev/null; then
     [ -e /snap ] || sudo ln -s /var/lib/snapd/snap /snap || true
 fi
 
-SNAPS=(snap-store postman mpv zoom-client rpi-imager notepad-plus-plus)
+SNAPS=(snap-store notepad-plus-plus telegram-desktop whatsapp-electron)
 for s in "${SNAPS[@]}"; do
     if snap list "$s" &>/dev/null; then
         echo -e "\n\e[32m------------------| snap '$s' already installed, skipping |----------------------\e[0m"
@@ -85,15 +92,6 @@ for s in "${SNAPS[@]}"; do
         sudo snap install "$s"
     fi
 done
-
-# Pycharm Community generally needs --classic, keep same behavior
-if snap list pycharm-community &>/dev/null; then
-    echo -e "\n\e[32m------------------| snap 'pycharm-community' already installed, skipping |----------------------\e[0m"
-else
-    echo -e "\n\e[34m------------------| INSTALLING snap pycharm-community |----------------------\e[0m"
-    sudo snap install pycharm-community --classic
-fi
-
 echo -e "\n\e[32m| Installing From Snap Store DONE |\e[0m\n"
 
 
@@ -114,6 +112,22 @@ cd ..
 rm -rf Matrix-grub-theme
 echo -e "\n\e[32m| GRUB Theme DONE |\e[0m\n"
 
+echo "\n---------------------------------------------------------------------------------"
+echo "===========================| Nvidia Drivers |======================================"
+sudo dnf install akmod-nvidia -y
+sudo dnf install xorg-x11-drv-nvidia-cuda -y
+sudo dnf install xorg-x11-drv-nvidia-power -y
+sudo systemctl enable nvidia-{suspend,resume,hibernate}
+modinfo -F version nvidia
+
+
+echo "\n---------------------------------------------------------------------------------"
+echo "=============================| Pycharm |==========================================="
+wget https://download-cdn.jetbrains.com/python/pycharm-2025.2.4.tar.gz
+unzip -o pycharm-2025.2.4.tar.gz
+sudo mv pycharm-2025.2.4 /opt/
+sudo ln -s /opt/pycharm-2025.2.4/bin/pycharm.sh /usr/local/bin/pycharm
+
 
 echo "\n---------------------------------------------------------------------------------"
 echo "===============================| TLP |==========================================="
@@ -125,7 +139,6 @@ install_pkg_if_available tlp-rdw
 
 sudo systemctl start tlp || true
 sudo systemctl enable tlp || true
-sudo systemctl enable tlp-sleep || true
 sudo systemctl restart tlp || true
 sudo systemctl status tlp || true
 tlp-stat -s || true
