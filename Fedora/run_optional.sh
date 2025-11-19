@@ -115,16 +115,16 @@ flatpak install flathub us.zoom.Zoom -y
 flatpak install flathub org.raspberrypi.rpi-imager -y
 flatpak install flathub io.mpv.Mpv -y 
 flatpak install flathub com.getpostman.Postman -y
-
+flatpak install flathub cc.arduino.IDE2 -y
 
 
 echo "\n---------------------------------------------------------------------------------"
 echo "===========================| Nvidia Drivers |======================================"
 sudo dnf install akmod-nvidia -y
 sudo dnf install xorg-x11-drv-nvidia-cuda -y
-sudo dnf install xorg-x11-drv-nvidia-power -y
+# sudo dnf install xorg-x11-drv-nvidia-power -y
 sudo systemctl enable nvidia-{suspend,resume,hibernate}
-modinfo -F version nvidia
+# modinfo -F version nvidia
 
 
 echo "\n---------------------------------------------------------------------------------"
@@ -168,12 +168,12 @@ echo "\n------------------------------------------------------------------------
 echo "============================| ARDUINO IDE |======================================"
 sleep 0.5
 
-wget https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.6_Linux_64bit.AppImage
-chmod +x arduino-ide_2.3.6_Linux_64bit.AppImage
-sudo mv arduino-ide_2.3.6_Linux_64bit.AppImage /opt/
-sudo ln -sf /opt/arduino-ide_2.3.6_Linux_64bit.AppImage /usr/local/bin/arduino-ide
-echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
-echo -e "\n\e[32m| Arduino IDE DONE |\e[0m\n"
+# wget https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.6_Linux_64bit.AppImage
+# chmod +x arduino-ide_2.3.6_Linux_64bit.AppImage
+# sudo mv arduino-ide_2.3.6_Linux_64bit.AppImage /opt/
+# sudo ln -sf /opt/arduino-ide_2.3.6_Linux_64bit.AppImage /usr/local/bin/arduino-ide
+# echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"' | sudo tee /etc/udev/rules.d/99-arduino.rules >/dev/null
+# echo -e "\n\e[32m| Arduino IDE DONE |\e[0m\n"
 
 
 echo "\n---------------------------------------------------------------------------------"
