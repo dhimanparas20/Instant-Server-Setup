@@ -100,7 +100,7 @@ fi
 git clone https://github.com/yeyushengfan258/Matrix-grub-theme.git
 cd Matrix-grub-theme
 chmod +x install.sh
-sudo ./install.sh -t window
+sudo ./install.sh -t window -b
 cd ..
 rm -rf Matrix-grub-theme
 echo -e "\n\e[32m| GRUB Theme DONE |\e[0m\n"
