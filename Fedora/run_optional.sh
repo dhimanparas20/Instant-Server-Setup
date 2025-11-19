@@ -116,7 +116,8 @@ flatpak install flathub org.raspberrypi.rpi-imager -y
 flatpak install flathub io.mpv.Mpv -y 
 flatpak install flathub com.getpostman.Postman -y
 flatpak install flathub cc.arduino.IDE2 -y
-
+flatpak install flathub com.mattjakeman.ExtensionManager -y
+flatpak install flathub dev.edfloreshz.CosmicTweaks -y
 
 echo "\n---------------------------------------------------------------------------------"
 echo "===========================| Nvidia Drivers |======================================"
