@@ -7,12 +7,6 @@ set -o pipefail
 # Error handler for zsh
 trap 'echo -e "\e[31mError occurred at line $LINENO. Exiting.\e[0m"' ZERR
 
-echo "\n---------------------------------------------------------------------------------"
-echo "install zoom raspberry postman from fedoras official store mpv"
-sleep 2
-# 
-
-
 clear
 echo "\n---------------------------------------------------------------------------------"
 echo "                     Installing Optional Dependencies (Fedora)                   "
@@ -83,7 +77,7 @@ if ! command -v snap &>/dev/null; then
     [ -e /snap ] || sudo ln -s /var/lib/snapd/snap /snap || true
 fi
 
-SNAPS=(snap-store notepad-plus-plus telegram-desktop whatsapp-electron)
+SNAPS=(snap-store notepad-plus-plus whatsapp-electron)
 for s in "${SNAPS[@]}"; do
     if snap list "$s" &>/dev/null; then
         echo -e "\n\e[32m------------------| snap '$s' already installed, skipping |----------------------\e[0m"
@@ -111,6 +105,19 @@ sudo ./install.sh -t window
 cd ..
 rm -rf Matrix-grub-theme
 echo -e "\n\e[32m| GRUB Theme DONE |\e[0m\n"
+
+
+echo "\n---------------------------------------------------------------------------------"
+echo "==========================| Flathub Packages |====================================="
+echo "install postman from fedoras flathub"
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub org.telegram.desktop -y
+flatpak install flathub us.zoom.Zoom -y
+flatpak install flathub org.raspberrypi.rpi-imager -y
+flatpak install flathub io.mpv.Mpv -y 
+flatpak install flathub com.getpostman.Postman -y
+
+
 
 echo "\n---------------------------------------------------------------------------------"
 echo "===========================| Nvidia Drivers |======================================"
@@ -177,6 +184,15 @@ sleep 0.5
 pipx install black
 which black || echo "black not in PATH yet (open a new shell or ensure pipx bin dir is in PATH)"
 echo -e "\n\e[32m| Black DONE |\e[0m\n"
+
+
+echo "\n---------------------------------------------------------------------------------"
+echo "=============================| ClamAV |==========================================="
+sudo dnf upgrade --refresh
+sudo dnf install clamav clamd clamav-update -y
+sudo systemctl stop clamav-freshclam
+sudo freshclam
+sudo systemctl enable clamav-freshclam --now
 
 
 echo "\n---------------------------------------------------------------------------------"
