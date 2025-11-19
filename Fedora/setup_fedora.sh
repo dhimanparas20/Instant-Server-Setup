@@ -25,6 +25,7 @@ sleep 0.5
 export DNF_YUM_AUTO_YES=1
 
 # Base system update
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf -y update
 #sudo dnf install -y  curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip python3-pipx python3-virtualenv fuse fuse-libs tmateufw bind-utils dnsutils equivalent fastfetch net-tools htop btop NetworkManager tlp tlp-rdw kernel-headers kernel-devel
 
