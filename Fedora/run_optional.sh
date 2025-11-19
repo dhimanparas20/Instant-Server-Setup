@@ -156,7 +156,7 @@ echo "\n------------------------------------------------------------------------
 echo "=========================| PLATFORM TOOLS |======================================="
 sleep 0.5
 
-wget -q https://dl.google.com/android/repository/platform-tools-latest-linux.zip
+wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
 unzip -o platform-tools-latest-linux.zip
 rm -f platform-tools-latest-linux.zip
 sudo mv -f platform-tools /opt/
@@ -169,7 +169,7 @@ echo "\n------------------------------------------------------------------------
 echo "============================| ARDUINO IDE |======================================"
 sleep 0.5
 
-wget -q https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.6_Linux_64bit.AppImage
+wget https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.6_Linux_64bit.AppImage
 chmod +x arduino-ide_2.3.6_Linux_64bit.AppImage
 sudo mv arduino-ide_2.3.6_Linux_64bit.AppImage /opt/
 sudo ln -sf /opt/arduino-ide_2.3.6_Linux_64bit.AppImage /usr/local/bin/arduino-ide
@@ -203,7 +203,7 @@ sleep 0.5
 COMPASS_RPM="mongodb-compass-1.46.10.x86_64.rpm"
 COMPASS_URL="https://downloads.mongodb.com/compass/${COMPASS_RPM}"
 
-wget -q "$COMPASS_URL" -O "$COMPASS_RPM"
+wget "$COMPASS_URL" -O "$COMPASS_RPM"
 sudo dnf install -y "./$COMPASS_RPM" || sudo rpm -Uvh "./$COMPASS_RPM" || true
 rm -f "$COMPASS_RPM"
 
