@@ -179,7 +179,7 @@ clone_if_missing() {
 clone_if_missing "https://github.com/zsh-users/zsh-autosuggestions"         "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 clone_if_missing "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 clone_if_missing "https://github.com/marlonrichert/zsh-autocomplete.git"   "$ZSH_CUSTOM/plugins/zsh-autocomplete"
-clone_if_missing "https://github.com/zsh-users/zsh-completions.git"        "$ZSH_CUSTOM/plugins/zsh-completions"
+#clone_if_missing "https://github.com/zsh-users/zsh-completions.git"        "$ZSH_CUSTOM/plugins/zsh-completions"
 
 # Theme
 clone_if_missing "https://github.com/romkatv/powerlevel10k.git"            "$ZSH_CUSTOM/themes/powerlevel10k"
@@ -199,7 +199,7 @@ fi
 
 # Replace default plugins=(git) if present
 if grep -q '^plugins=(git)' "$ZSHRC_FILE" 2>/dev/null; then
-    sed -i 's/^plugins=(git)/plugins=(git sudo history encode64 copypath zsh-autosuggestions zsh-completions zsh-autocomplete command-not-found extract docker colored-man-pages alias-finder zsh-syntax-highlighting)/' "$ZSHRC_FILE"
+    sed -i 's/^plugins=(git)/plugins=(git sudo history encode64 copypath zsh-autosuggestions zsh-autocomplete command-not-found extract docker colored-man-pages alias-finder zsh-syntax-highlighting)/' "$ZSHRC_FILE"
 else
     echo "Default plugins=(git) not found, leaving plugins as-is."
 fi
