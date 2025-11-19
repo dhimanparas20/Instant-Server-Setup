@@ -33,7 +33,6 @@ install_pkg_if_available() {
 
 PKGS=(
     nvtop
-    grub-customizer
     gparted
     unzip
     fuse
