@@ -76,7 +76,7 @@ if ! command -v snap &>/dev/null; then
     [ -e /snap ] || sudo ln -s /var/lib/snapd/snap /snap || true
 fi
 
-SNAPS=(snap-store notepad-plus-plus whatsapp-electron)
+SNAPS=(snap-store notepad-plus-plus)
 for s in "${SNAPS[@]}"; do
     if snap list "$s" &>/dev/null; then
         echo -e "\n\e[32m------------------| snap '$s' already installed, skipping |----------------------\e[0m"
