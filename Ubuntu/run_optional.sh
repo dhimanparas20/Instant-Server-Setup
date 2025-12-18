@@ -62,9 +62,9 @@ for s in "${SNAPS[@]}"; do
         sudo snap install "$s"
     fi
 done
-echo -e "\n\e[34m------------------| INSTALLING Pycharm Community $s |----------------------\e[0m"
-sudo snap install pycharm-community --classic
-echo -e "\n\e[32m| Installing From Snap Store DONE |\e[0m\n"
+# echo -e "\n\e[34m------------------| INSTALLING Pycharm Community $s |----------------------\e[0m"
+# sudo snap install pycharm-community --classic
+# echo -e "\n\e[32m| Installing From Snap Store DONE |\e[0m\n"
 
 
 echo "\n---------------------------------------------------------------------------------"
