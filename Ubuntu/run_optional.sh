@@ -107,6 +107,13 @@ sudo ln -sf /opt/platform-tools/fastboot /usr/local/bin/fastboot
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
 echo "\n---------------------------------------------------------------------------------"
+echo "=============================| Pycharm |==========================================="
+wget https://download-cdn.jetbrains.com/python/pycharm-2025.3.1.1.tar.gz
+unzip -o pycharm-2025.2.4.tar.gz
+sudo mv pycharm-2025.2.4 /opt/
+sudo ln -s /opt/pycharm-2025.2.4/bin/pycharm.sh /usr/local/bin/pycharm
+
+echo "\n---------------------------------------------------------------------------------"
 echo "============================| ARDUINO IDE |======================================="
 wget -q https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.6_Linux_64bit.AppImage
 chmod +x arduino-ide_2.3.6_Linux_64bit.AppImage
