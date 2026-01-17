@@ -109,9 +109,9 @@ echo -e "\n\e[32m| DONE |\e[0m\n"
 echo "\n---------------------------------------------------------------------------------"
 echo "=============================| Pycharm |==========================================="
 wget https://download-cdn.jetbrains.com/python/pycharm-2025.3.1.1.tar.gz
-unzip -o pycharm-2025.2.4.tar.gz
-sudo mv pycharm-2025.2.4 /opt/
-sudo ln -s /opt/pycharm-2025.2.4/bin/pycharm.sh /usr/local/bin/pycharm
+unzip -o pycharm-2025.3.1.1.tar.gz
+sudo mv pycharm-2025.3.1.1 /opt/
+sudo ln -s /opt/pycharm-2025.3.1.1/bin/pycharm.sh /usr/local/bin/pycharm
 
 echo "\n---------------------------------------------------------------------------------"
 echo "============================| ARDUINO IDE |======================================="
