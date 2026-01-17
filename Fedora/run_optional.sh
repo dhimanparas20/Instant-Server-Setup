@@ -130,7 +130,7 @@ sudo systemctl enable nvidia-{suspend,resume,hibernate}
 
 echo "\n---------------------------------------------------------------------------------"
 echo "=============================| Pycharm |==========================================="
-wget https://download-cdn.jetbrains.com/python/pycharm-2025.2.4.tar.gz
+wget https://download-cdn.jetbrains.com/python/pycharm-2025.3.1.1.tar.gz
 unzip -o pycharm-2025.2.4.tar.gz
 sudo mv pycharm-2025.2.4 /opt/
 sudo ln -s /opt/pycharm-2025.2.4/bin/pycharm.sh /usr/local/bin/pycharm
