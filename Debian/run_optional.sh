@@ -54,7 +54,7 @@ echo "--------------------------------------------------------------------------
 sleep 0.5
 
 # NVM + Node (per-user)
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
 
 # Load nvm into this script session so `nvm install` works
 if [ -s "$HOME/.nvm/nvm.sh" ]; then
@@ -66,7 +66,6 @@ elif [ -s "/usr/share/nvm/init-nvm.sh" ]; then
     source "/usr/share/nvm/init-nvm.sh"
 fi
 
-nvm install node
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
@@ -91,15 +90,6 @@ for s in "${SNAPS[@]}"; do
         sudo snap install "$s"
     fi
 done
-
-echo -e "\n\e[34m------------------| INSTALLING Pycharm Community |----------------------\e[0m"
-if snap list pycharm-community &>/dev/null; then
-    echo -e "\n\e[32m------------------| snap 'pycharm-community' already installed, skipping |----------------------\e[0m"
-else
-    sudo snap install pycharm-community --classic
-fi
-echo -e "\n\e[32m| Installing From Snap Store DONE |\e[0m\n"
-
 
 echo "\n---------------------------------------------------------------------------------"
 echo "                              Installing GRUB THEME                              "
