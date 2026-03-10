@@ -98,6 +98,16 @@ curl -fsSL https://get.docker.com | bash
 dockerd-rootless-setuptool.sh install
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
+echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
+echo -e "\e[34m                                 Installing Docker Rollout                        \e[0m"
+echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
+# Create directory for Docker cli plugins
+mkdir -p ~/.docker/cli-plugins
+# Download docker-rollout script to Docker cli plugins directory
+curl https://raw.githubusercontent.com/wowu/docker-rollout/main/docker-rollout -o ~/.docker/cli-plugins/docker-rollout
+# Make the script executable
+chmod +x ~/.docker/cli-plugins/docker-rollout
+
 
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                         Cloning oh-my-zsh Extensions                            \e[0m"
