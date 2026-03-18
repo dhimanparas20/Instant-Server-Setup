@@ -1,5 +1,8 @@
 export PATH="$PATH:$HOME/bin"
 export PATH="$HOME/.local/bin:$PATH"
+
+# Export fix for using Lazydocker as root
+export DOCKER_HOST=unix:///var/run/docker.sock
 eval "$(zoxide init zsh)"
 
 # System Aliases
