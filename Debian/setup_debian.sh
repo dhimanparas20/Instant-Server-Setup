@@ -28,7 +28,7 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt update -q
 
 # Some useful base tools (also pulls in software-properties-common on Debian if needed)
-sudo apt install -yq ca-certificates curl gnupg lsb-release
+sudo apt install -yq ca-certificates gnupg lsb-release
 
 # NOTE: No "universe" on Debian, so we skip add-apt-repository here.
 sudo apt upgrade -yq
@@ -107,11 +107,11 @@ echo -e "\n\e[34m---------------------------------------------------------------
 echo -e "\e[34m                                 Installing Docker Rollout                        \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 # Create directory for Docker cli plugins
-mkdir -p ~/.docker/cli-plugins
+mkdir -p /usr/local/lib/docker/cli-plugins/
 # Download docker-rollout script to Docker cli plugins directory
-curl https://raw.githubusercontent.com/wowu/docker-rollout/main/docker-rollout -o ~/.docker/cli-plugins/docker-rollout
+curl https://raw.githubusercontent.com/wowu/docker-rollout/main/docker-rollout -o /usr/local/lib/docker/cli-plugins/docker-rollout
 # Make the script executable
-chmod +x ~/.docker/cli-plugins/docker-rollout
+chmod +x /usr/local/lib/docker/cli-plugins/docker-rollout
 
 
 echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
