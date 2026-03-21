@@ -102,11 +102,11 @@ echo -e "\n\e[34m---------------------------------------------------------------
 echo -e "\e[34m                                 Installing Docker Rollout                        \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 # Create directory for Docker cli plugins
-mkdir -p /usr/local/lib/docker/cli-plugins/
+sudo mkdir -p /usr/local/lib/docker/cli-plugins/
 # Download docker-rollout script to Docker cli plugins directory
-curl https://raw.githubusercontent.com/wowu/docker-rollout/main/docker-rollout -o /usr/local/lib/docker/cli-plugins/docker-rollout
+sudo curl https://raw.githubusercontent.com/wowu/docker-rollout/main/docker-rollout -o /usr/local/lib/docker/cli-plugins/docker-rollout
 # Make the script executable
-chmod +x /usr/local/lib/docker/cli-plugins/docker-rollout
+sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-rollout
 
 
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
