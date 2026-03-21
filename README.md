@@ -7,14 +7,14 @@ This project supports:
 * **Ubuntu**
 * **Debian**
 * **Fedora**
-* **Arch Linux**
 
-Each distro has **two scripts**:
+Each distro has **two scripts**, and Ubuntu/Debian have a dedicated third server setup script:
 
-| Script              | Purpose                                                  |
-| ------------------- | -------------------------------------------------------- |
-| `setup_<distro>.sh` | Main installation & system configuration                 |
-| `run_optional.sh`   | Optional heavy tools, GUI apps, utilities, theming, etc. |
+| Script               | Purpose                                                  |
+| -------------------- | -------------------------------------------------------- |
+| `setup_<distro>.sh`  | Main installation & system configuration                 |
+| `run_optional.sh`    | Optional heavy tools, GUI apps, utilities, theming, etc. |
+| `server_setup.sh`    | (Ubuntu/Debian) Server-focused setup bundle              |
 
 And one universal top-level launcher:
 
@@ -33,18 +33,16 @@ Instant-Server-Setup/
 │
 ├── Ubuntu/
 │   ├── setup_ubuntu.sh
-│   └── run_optional.sh
+│   ├── run_optional.sh
+│   └── server_setup.sh
 │
 ├── Debian/
 │   ├── setup_debian.sh
-│   └── run_optional.sh
+│   ├── run_optional.sh
+│   └── server_setup.sh
 │
 ├── Fedora/
 │   ├── setup_fedora.sh
-│   └── run_optional.sh
-│
-├── Arch/
-│   ├── setup_arch.sh
 │   └── run_optional.sh
 │
 ├── dockerAlias.sh              # Shared docker aliases (automatically appended)
@@ -125,6 +123,7 @@ The launcher will:
 
    * **1 – Main Script**
    * **2 – Optional Script**
+   * **3 – Server Setup (Ubuntu/Debian only)**
 5. If “Main” is chosen:
 
    * Runs
@@ -148,7 +147,6 @@ This yields a clean, consistent experience across all distros.
   * Ubuntu ≥ 20.04
   * Debian ≥ 11
   * Fedora ≥ 38
-  * Arch (rolling)
 * Internet connection
 * Ability to use `sudo`
 * Fresh system recommended but not required
@@ -171,7 +169,7 @@ All scripts are executed **using Zsh**, not Bash.
 
 ### ✔ Snap support
 
-Fedora / Arch scripts add snap support where needed.
+Fedora scripts add snap support where needed.
 
 ---
 
