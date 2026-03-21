@@ -42,28 +42,23 @@ ensure_in_repo() {
 select_distro() {
   echo
   echo "Select your distro:"
-  echo "  1) Arch"
-  echo "  2) Debian"
-  echo "  3) Fedora"
-  echo "  4) Ubuntu"
+  echo "  1) Debian"
+  echo "  2) Fedora"
+  echo "  3) Ubuntu"
   echo
 
-  read -r -p "Enter choice [1-4]: " choice
+  read -r -p "Enter choice [1-3]: " choice
 
   case "${choice,,}" in
-    1|arch)
-      DISTRO_DIR="Arch"
-      DISTRO_ID="arch"
-      ;;
-    2|debian)
+    1|debian)
       DISTRO_DIR="Debian"
       DISTRO_ID="debian"
       ;;
-    3|fedora)
+    2|fedora)
       DISTRO_DIR="Fedora"
       DISTRO_ID="fedora"
       ;;
-    4|ubuntu)
+    3|ubuntu)
       DISTRO_DIR="Ubuntu"
       DISTRO_ID="ubuntu"
       ;;
@@ -80,9 +75,12 @@ select_script_type() {
   echo "Select script to run:"
   echo "  1) Main (setup_<distro>.sh)  [default]"
   echo "  2) Optional (run_optional.sh)"
+  if [[ "$DISTRO_ID" == "debian" || "$DISTRO_ID" == "ubuntu" ]]; then
+    echo "  3) Server setup (server_setup.sh)"
+  fi
   echo
 
-  read -r -p "Enter choice [1-2, default 1]: " script_choice
+  read -r -p "Enter choice [1-3, default 1]: " script_choice
   script_choice="${script_choice:-1}"
 
   case "${script_choice,,}" in
@@ -91,6 +89,13 @@ select_script_type() {
       ;;
     2|optional)
       SCRIPT_KIND="optional"
+      ;;
+    3|server)
+      if [[ "$DISTRO_ID" == "debian" || "$DISTRO_ID" == "ubuntu" ]]; then
+        SCRIPT_KIND="server"
+      else
+        error "Server setup script not available for $DISTRO_DIR."
+      fi
       ;;
     *)
       error "Invalid script choice."
@@ -102,9 +107,6 @@ select_script_type() {
 
 detect_pkg_manager() {
   case "$DISTRO_ID" in
-    arch)
-      PKG_MGR="pacman"
-      ;;
     debian|ubuntu)
       PKG_MGR="apt"
       ;;
@@ -127,10 +129,6 @@ install_pkg() {
       ;;
     dnf)
       sudo dnf install -y "$pkg"
-      ;;
-    pacman)
-      sudo pacman -Syu --noconfirm >/dev/null 2>&1 || true
-      sudo pacman -S --noconfirm "$pkg"
       ;;
     *)
       error "Internal error: unknown PKG_MGR '$PKG_MGR'."
@@ -177,6 +175,9 @@ build_script_path() {
       ;;
     optional)
       SCRIPT_PATH="$DISTRO_DIR/run_optional.sh"
+      ;;
+    server)
+      SCRIPT_PATH="$DISTRO_DIR/server_setup.sh"
       ;;
     *)
       error "Internal error: unknown SCRIPT_KIND '$SCRIPT_KIND'."
