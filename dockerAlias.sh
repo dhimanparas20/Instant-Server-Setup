@@ -7,8 +7,8 @@ eval "$(zoxide init zsh)"
 
 # System Aliases
 alias cls="clear"
-alias docker="docker"
-# alias docker="sudo docker"
+#alias docker="docker"
+alias docker="sudo docker"
 alias doc="docker compose "
 alias ld="lazydocker "
 
