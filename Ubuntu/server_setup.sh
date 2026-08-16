@@ -53,6 +53,9 @@ sleep 0.5
 
 # These remote installers expect bash / POSIX, and may sudo internally
 curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+mkdir -p ~/.local/share/zsh
+touch ~/.local/share/zsh/chpwd-recent-dirs
+exec zsh
 echo -e "\n\e[32m| Installing LAZYDOCKER Done |\e[0m\n"
 
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
