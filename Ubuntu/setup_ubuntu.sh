@@ -38,7 +38,7 @@ sudo apt install -yq software-properties-common
 
 sudo add-apt-repository -y universe
 sudo apt upgrade -yq
-sudo apt install -yq curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv tmate ufw dnsutils neofetch net-tools htop btop network-manager tlp tlp-rdw "linux-headers-$(uname -r)"
+sudo apt install -yq curl postgresql postgresql-contrib git uidmap snapd xdg-utils python3 python3-pip pipx python3-venv tmate ufw dnsutils neofetch net-tools htop btop network-manager tlp tlp-rdw "linux-headers-$(uname -r)"
 sudo apt autoremove -y
 # PKGS=(
 #     curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
