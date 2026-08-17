@@ -39,7 +39,7 @@ sudo apt install -yq software-properties-common
 
 sudo add-apt-repository -y universe
 sudo apt upgrade -yq
-sudo apt install -yq curl uidmap tmate ufw dnsutils neofetch net-tools htop network-manager "linux-headers-$(uname -r)"
+sudo apt install -yq curl uidmap tmate ufw dnsutils neofetch net-tools htop network-manager xdg-utils "linux-headers-$(uname -r)"
 sudo apt autoremove -y
 #git config --global credential.helper libsecret
 
