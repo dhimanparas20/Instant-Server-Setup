@@ -10,6 +10,7 @@ alias cls="clear"
 #alias docker="docker"
 alias docker="sudo docker"
 alias doc="docker compose "
+alis docf="docker compose -f "
 alias ld="lazydocker "
 
 # Git Alias
