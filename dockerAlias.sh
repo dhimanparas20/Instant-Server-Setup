@@ -117,6 +117,6 @@ alias raspi='sshpass -p "" ssh mst@raspi.local'
 alias server="ssh -i '/location/to/key.pem' ubuntu@ip"
 alias server2='sshpass -p "password" ssh root@ip' 
 
-clear
+#clear
 echo "Hello GOD!"
 ls
