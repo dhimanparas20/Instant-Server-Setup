@@ -93,7 +93,9 @@ clone_if_missing() {
 }
 
 install_oh_my_zsh() {
-  if [[ -d "${HOME}/.oh-my-zsh/.git" ]]; then
+  local omz_dir="${HOME}/.oh-my-zsh"
+
+  if [[ -d "${omz_dir}/.git" ]]; then
     ok "Oh My Zsh already installed"
   else
     section "Installing Oh My Zsh"
@@ -103,9 +105,11 @@ install_oh_my_zsh() {
     ok "Oh My Zsh installed"
   fi
 
-  git -C "${HOME}/.oh-my-zsh" fetch origin
-  git -C "${HOME}/.oh-my-zsh" checkout "${OMZ_REF}"
-  ok "Oh My Zsh pinned at $(git -C "${HOME}/.oh-my-zsh" rev-parse --short HEAD)"
+  section "Pinning Oh My Zsh"
+  # OMZ installer shallow-clones; fetch full history so pinned commit exists
+  git -C "${omz_dir}" fetch --unshallow 2>/dev/null || git -C "${omz_dir}" fetch origin
+  git -C "${omz_dir}" checkout "${OMZ_REF}"
+  ok "Oh My Zsh pinned at $(git -C "${omz_dir}" rev-parse --short HEAD)"
 }
 
 setup_aliases() {
