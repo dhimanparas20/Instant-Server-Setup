@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
-
+#
+# OPTIONAL — use server_setup.sh on fresh Ubuntu servers instead.
+# This script re-applies zsh plugins + aliases only.
+# Requires: Oh My Zsh already installed (will NOT install OMZ or Docker from scratch).
+#
 # Strict mode for zsh
 set -eu
 set -o pipefail
@@ -114,7 +118,7 @@ pin_oh_my_zsh() {
     fi
 
     echo "Pinning Oh My Zsh -> $OMZ_REF"
-    git -C "$omz_dir" fetch origin
+    git -C "$omz_dir" fetch --unshallow 2>/dev/null || git -C "$omz_dir" fetch origin
     git -C "$omz_dir" checkout "$OMZ_REF"
     echo "Pinned oh-my-zsh at $(git -C "$omz_dir" rev-parse --short HEAD)"
 }
