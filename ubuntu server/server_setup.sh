@@ -28,8 +28,8 @@ INSTALL_DOCKER="${INSTALL_DOCKER:-true}"
 INSTALL_LAZYDOCKER="${INSTALL_LAZYDOCKER:-true}"
 INSTALL_ZOXIDE="${INSTALL_ZOXIDE:-true}"
 INSTALL_UV="${INSTALL_UV:-true}"          # Python/Django tooling (matches your aliases)
-ENABLE_UFW="${ENABLE_UFW:-true}"          # Allows SSH before enabling
-CHANGE_SHELL_TO_ZSH="${CHANGE_SHELL_TO_ZSH:-true}"
+ENABLE_UFW="${ENABLE_UFW:-false}"         # Use AWS Security Group instead; set true to enable UFW
+CHANGE_SHELL_TO_ZSH="${CHANGE_SHELL_TO_ZSH:-false}"  # Skipped by default (chsh asks password on EC2)
 PROMPT_REBOOT="${PROMPT_REBOOT:-true}"
 
 # UFW: keep SSH open (change port if you use a non-standard SSH port)
@@ -260,7 +260,10 @@ setup_zsh_plugins() {
 }
 
 setup_ufw() {
-  [[ "${ENABLE_UFW}" == "true" ]] || { warn "Skipping UFW (ENABLE_UFW=false)"; return 0; }
+  [[ "${ENABLE_UFW}" == "true" ]] || {
+    ok "Skipping UFW (use AWS Security Group for firewall; set ENABLE_UFW=true to enable)"
+    return 0
+  }
 
   section "Firewall (UFW)"
   sudo ufw default deny incoming
@@ -275,23 +278,18 @@ setup_ufw() {
 }
 
 set_default_shell_zsh() {
-  [[ "${CHANGE_SHELL_TO_ZSH}" == "true" ]] || return 0
-
-  if [[ "${SHELL:-}" == *zsh* ]]; then
-    ok "Default shell already zsh"
+  [[ "${CHANGE_SHELL_TO_ZSH}" == "true" ]] || {
+    ok "Skipping default shell change (use: exec zsh, or run: sudo usermod -s \$(which zsh) \$USER)"
     return 0
-  fi
+  }
 
-  if ! command -v zsh >/dev/null; then
-    warn "zsh not found — skipping chsh"
-    return 0
-  fi
+  local zsh_path
+  zsh_path="$(command -v zsh)" || { warn "zsh not found — skipping"; return 0; }
 
-  if chsh -s "$(command -v zsh)" "${USER}"; then
-    ok "Default shell set to zsh (open a new session)"
+  if sudo usermod -s "${zsh_path}" "${USER}"; then
+    ok "Default shell set to zsh — reconnect SSH to use it"
   else
-    warn "Could not chsh — run manually: chsh -s \$(which zsh)"
-    warn "Or use zsh now without changing default: exec zsh"
+    warn "Run manually after setup: sudo usermod -s \$(which zsh) ${USER}"
   fi
 }
 
@@ -304,13 +302,15 @@ Docker dir:   ${HOME}/docker
 Aliases:      ${ALIAS_URL}
 
 Next steps:
-  1. Open a new SSH session (or run: exec zsh)
-  2. Verify Docker:  docker run --rm hello-world
-  3. Verify zsh:     type ls → ghost suggestion should appear
-  4. Deploy an app:  cd ~/apps && git clone <your-repo> && docker compose up -d
+  1. Run: exec zsh
+  2. Permanent zsh (EC2 — no chsh password):  sudo usermod -s \$(which zsh) ${USER}
+     Then disconnect SSH and log back in.
+  3. Verify Docker:  docker run --rm hello-world
+  4. Verify zsh:     type ls → ghost suggestion should appear
+  5. Deploy an app:  cd ~/apps && git clone <your-repo> && docker compose up -d
 
-Optional env vars for next run:
-  INSTALL_DOCKER=false ENABLE_UFW=false ./server_setup.sh
+Firewall: UFW skipped by default — use AWS Security Group.
+Optional: ENABLE_UFW=true CHANGE_SHELL_TO_ZSH=true ./server_setup.sh
 
 Pinned plugin refs: OMZ=${OMZ_REF} autosuggest=${ZSH_AUTOSUGGESTIONS_REF} autocomplete=${ZSH_AUTOCOMPLETE_REF}
 EOF
