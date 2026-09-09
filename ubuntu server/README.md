@@ -58,7 +58,16 @@ Then reconnect SSH.
 
 ---
 
-## Lazydocker — no "Press enter" prompt
+## Lazydocker — skip "Press enter to return to lazydocker"
+
+When you exit a shell or logs view inside lazydocker, you may see:
+
+```text
+Press enter to return to lazydocker
+(this prompt can be disabled in your config by setting gui.returnImmediately: true)
+```
+
+**Fix (one time per server):**
 
 ```bash
 mkdir -p ~/.config/lazydocker
@@ -68,7 +77,20 @@ gui:
 EOF
 ```
 
-Restart lazydocker (`ld`). See full guide for details.
+If `~/.config/lazydocker/config.yml` already exists, edit it and set `returnImmediately: true` under `gui:`, or in lazydocker: project panel (top left) → press **`e`**.
+
+Restart lazydocker (`ld`) for the change to apply.
+
+**Fix on your server now** — crash after exiting container shell (`xdg-open: not found`):
+
+```bash
+sudo apt install -y xdg-utils
+ld
+```
+
+Then open a container shell again and exit — it should return to lazydocker without that error.
+
+Headless Ubuntu servers don't include `xdg-open` by default; lazydocker needs it. New servers get `xdg-utils` from `server_setup.sh`.
 
 ---
 
