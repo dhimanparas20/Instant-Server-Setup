@@ -105,7 +105,7 @@ chmod +x run.sh && ./run.sh
 ```bash
 git clone https://github.com/dhimanparas20/Instant-Server-Setup.git
 cd Instant-Server-Setup
-chmod +x run.sh && ./run.sh
+chmod +x run.sh && chmod +x Ubuntu/* && ./run.sh
 ```
 
 Same workflow: distro selection → script selection → execution.
