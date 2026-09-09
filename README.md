@@ -91,7 +91,7 @@ sudo apt update
 sudo apt install git zsh -y && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-## **Method 1 — Run using curl/wget (recommended)**
+## **Method 1 — Run using curl/wget (NOT recommended)**
 
 ```bash
 wget -q https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/run.sh
@@ -100,12 +100,20 @@ chmod +x run.sh && ./run.sh
 
 ---
 
-## **Method 2 — Manual Clone**
+## **Method 2 — Manual Clone (RECOMMENDED)**
 
 ```bash
 git clone https://github.com/dhimanparas20/Instant-Server-Setup.git
 cd Instant-Server-Setup
-chmod +x run.sh && chmod +x Ubuntu/* && ./run.sh
+chmod +x run.sh && ./run.sh
+```
+
+- or you can do for EC2 based Ubuntu Server
+
+```bash
+git clone https://github.com/dhimanparas20/Instant-Server-Setup.git
+cd Instant-Server-Setup
+chmod +x Ubuntu/* && ./Ubuntu/server_setup.sh
 ```
 
 Same workflow: distro selection → script selection → execution.
