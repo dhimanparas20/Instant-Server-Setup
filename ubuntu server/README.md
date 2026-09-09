@@ -58,6 +58,20 @@ Then reconnect SSH.
 
 ---
 
+## Lazydocker — no "Press enter" prompt
+
+```bash
+mkdir -p ~/.config/lazydocker
+cat > ~/.config/lazydocker/config.yml << 'EOF'
+gui:
+  returnImmediately: true
+EOF
+```
+
+Restart lazydocker (`ld`). See full guide for details.
+
+---
+
 ## AWS firewall
 
 UFW is **off** by default. Open ports in **EC2 Security Group** (SSH 22, HTTP 80, HTTPS 443, etc.).
