@@ -40,7 +40,7 @@ ZSHRC_FILE="${HOME}/.zshrc"
 ZSH_CUSTOM="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}"
 SETUP_DIR="${HOME}/.config/server-setup"
 LOG_FILE="${SETUP_DIR}/server_setup.log"
-ALIAS_URL="${ALIAS_URL:-https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/dockerAlias.sh}"
+ALIAS_URL="${ALIAS_URL:-https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/dockerAlias.sh}"
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 mkdir -p "${SETUP_DIR}" "${HOME}/apps" "${HOME}/docker" "${HOME}/bin"
