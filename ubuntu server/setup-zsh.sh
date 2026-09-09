@@ -185,7 +185,7 @@ echo -e "\e[34m                                Setting Up Aliases               
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 sleep 0.5
 
-ALIAS_URL="https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/dockerAlias.sh"
+ALIAS_URL="https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/dockerAlias.sh"
 echo "Fetching docker aliases from: $ALIAS_URL"
 if curl -fsSL "$ALIAS_URL" >> "$ZSHRC_FILE"; then
     echo "Appended remote dockerAlias.sh contents to $ZSHRC_FILE"
