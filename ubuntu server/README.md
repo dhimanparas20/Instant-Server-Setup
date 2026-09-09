@@ -7,7 +7,7 @@ One-shot bootstrap for fresh **Ubuntu EC2** (or similar) — Docker-ready, zsh +
 On a new server:
 
 ```bash
-curl -fsSL -o server_setup.sh https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/main/server_setup.sh
+curl -fsSL -o server_setup.sh https://raw.githubusercontent.com/YOUR_USER/Instant-Server-Setup/main/server_setup.sh
 chmod +x server_setup.sh
 ./server_setup.sh
 ```
