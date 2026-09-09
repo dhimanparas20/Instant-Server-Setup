@@ -102,6 +102,8 @@ alias dcipython="docker compose exec -it app ipython"
 # =================================
 alias py="python3"
 alias activate="python3 -m venv venv && source venv/bin/activate"
+alias uvrun="uv run "
+alias uvrun-p="uv run python3 "
 alias runserver="uv run python3 manage.py runserver 0.0.0.0:5000  "
 alias migrate="uv run python3 manage.py migrate"
 alias makemigrations="uv run python3 manage.py makemigrations"
