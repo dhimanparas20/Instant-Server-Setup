@@ -277,13 +277,21 @@ setup_ufw() {
 set_default_shell_zsh() {
   [[ "${CHANGE_SHELL_TO_ZSH}" == "true" ]] || return 0
 
-  if [[ "${SHELL:-}" != *zsh* ]]; then
-    if command -v zsh >/dev/null; then
-      chsh -s "$(command -v zsh)" "${USER}" || warn "Could not chsh — run: chsh -s \$(which zsh)"
-      ok "Default shell set to zsh (open a new session)"
-    fi
-  else
+  if [[ "${SHELL:-}" == *zsh* ]]; then
     ok "Default shell already zsh"
+    return 0
+  fi
+
+  if ! command -v zsh >/dev/null; then
+    warn "zsh not found — skipping chsh"
+    return 0
+  fi
+
+  if chsh -s "$(command -v zsh)" "${USER}"; then
+    ok "Default shell set to zsh (open a new session)"
+  else
+    warn "Could not chsh — run manually: chsh -s \$(which zsh)"
+    warn "Or use zsh now without changing default: exec zsh"
   fi
 }
 
