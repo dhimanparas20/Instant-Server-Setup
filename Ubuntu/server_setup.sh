@@ -22,8 +22,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # User's zshrc
 ZSHRC_FILE="$HOME/.zshrc"
-mkdir -p ~/.local/share/zsh
-touch ~/.local/share/zsh/chpwd-recent-dirs
+# mkdir -p ~/.local/share/zsh
+# touch ~/.local/share/zsh/chpwd-recent-dirs
 # exec zsh
 
 
