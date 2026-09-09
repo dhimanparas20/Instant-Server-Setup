@@ -41,7 +41,7 @@ sudo add-apt-repository -y universe
 sudo apt upgrade -yq
 sudo apt install -yq curl uidmap tmate ufw dnsutils net-tools htop network-manager xdg-utils "linux-headers-$(uname -r)"
 sudo apt autoremove -y
-#git config --global credential.helper libsecret
+git config --global credential.helper libsecret
 
 echo -e "\n\e[32m| Installing Dependencies DONE |\e[0m\n"
 
