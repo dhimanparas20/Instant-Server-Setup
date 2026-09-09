@@ -39,7 +39,7 @@ sudo apt install -yq software-properties-common
 
 sudo add-apt-repository -y universe
 sudo apt upgrade -yq
-sudo apt install -yq curl uidmap tmate ufw dnsutils neofetch net-tools htop network-manager xdg-utils "linux-headers-$(uname -r)"
+sudo apt install -yq curl uidmap tmate ufw dnsutils net-tools htop network-manager xdg-utils "linux-headers-$(uname -r)"
 sudo apt autoremove -y
 #git config --global credential.helper libsecret
 
@@ -55,7 +55,7 @@ sleep 0.5
 curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
 mkdir -p ~/.local/share/zsh
 touch ~/.local/share/zsh/chpwd-recent-dirs
-exec zsh
+# exec zsh
 echo -e "\n\e[32m| Installing LAZYDOCKER Done |\e[0m\n"
 
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
