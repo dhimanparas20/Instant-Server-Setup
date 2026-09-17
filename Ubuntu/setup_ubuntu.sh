@@ -79,7 +79,7 @@ echo -e "\e[34m                         Installing from SNAP Store              
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 sleep 0.5
 
-SNAPS=(ngrok)
+SNAPS=(ngrok , tldr)
 for s in "${SNAPS[@]}"; do
     if snap list "$s" &>/dev/null; then
         echo -e "\e[32m------------------| snap '$s' already installed, skipping |----------------------\e[0m"
@@ -197,7 +197,7 @@ git config --global credential.helper cache
 git config --global credential.helper store
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
-
+tldr --update
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                                     END                                         \e[0m"
 echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
