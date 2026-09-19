@@ -165,6 +165,7 @@ configure_git() {
   git config --global user.email "${GIT_EMAIL}"
   git config --global init.defaultBranch main
   git config --global credential.helper store
+  git config --global credential.useHttpPath true
   git config --global pull.rebase false
   ok "Git user: ${GIT_USER} <${GIT_EMAIL}>"
 }
