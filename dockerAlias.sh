@@ -11,6 +11,8 @@ alias cls="clear"
 alias docker="sudo docker"
 alias doc="docker compose "
 alias docf="docker compose -f "
+alias docr="docker rollout "
+alias docrf="docker rollout -f "
 alias ld="lazydocker "
 
 # Git Alias
