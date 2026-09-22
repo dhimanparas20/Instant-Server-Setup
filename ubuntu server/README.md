@@ -16,7 +16,7 @@ git clone https://github.com/dhimanparas20/Instant-Server-Setup.git
 cd "Instant-Server-Setup/ubuntu server"
 chmod +x server_setup.sh && ./server_setup.sh
 exec zsh
-sudo usermod -s $(which zsh) ubuntu
+sudo usermod -s $(which zsh) root
 ```
 
 Disconnect SSH and log back in — zsh + theme every time (no more `exec zsh`).
@@ -51,7 +51,7 @@ Instant-Server-Setup/
 `chsh` fails (password/PAM). Use this instead:
 
 ```bash
-sudo usermod -s $(which zsh) ubuntu
+sudo usermod -s $(which zsh) root
 ```
 
 Then reconnect SSH.
