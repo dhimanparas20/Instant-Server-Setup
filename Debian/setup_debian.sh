@@ -117,20 +117,29 @@ sleep 0.5
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 mkdir -p "$ZSH_CUSTOM"/{plugins,themes}
 
+# Clone and pin a repository to a specific ref.
+# The explicit ref fetch ensures the first clone (which only knows
+# the default branch) can still check out the requested pin.
 clone_and_pin() {
     local repo="$1"
     local dest="$2"
     local ref="$3"
 
-    if [ -d "$dest" ]; then
-        echo "Already exists, checking out pin: $dest"
-        git -C "$dest" fetch origin
+    if [ -d "$dest/.git" ]; then
+        echo "Already exists, fetching pin: $dest"
     else
         echo "Cloning $repo -> $dest"
         git clone "$repo" "$dest"
     fi
 
-    git -C "$dest" checkout "$ref"
+    # Try to fetch the specific ref first (fast path).
+    # Fall back to fetching all remote refs if the pin is on a non-default branch.
+    git -C "$dest" fetch --no-tags origin \
+        "+${ref}:${ref}" 2>/dev/null \
+    || git -C "$dest" fetch --no-tags origin \
+        "+refs/heads/*:refs/remotes/origin/*"
+
+    git -C "$dest" checkout --detach "$ref"
     echo "Pinned $(basename "$dest") at $(git -C "$dest" rev-parse --short HEAD)"
 }
 
