@@ -16,6 +16,13 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 # User's zshrc
 ZSHRC_FILE="$HOME/.zshrc"
 
+# Pinned refs (same as main server_setup.sh)
+OMZ_REF="6adfef3"
+ZSH_AUTOSUGGESTIONS_REF="85919cd"
+ZSH_AUTOCOMPLETE_REF="c10880e"
+ZSH_SYNTAX_HIGHLIGHTING_REF="1d85c69"
+ZSH_COMPLETIONS_REF="684021f"
+
 clear
 echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                         Installing Dependencies (Debian)                        \e[0m"
@@ -27,43 +34,18 @@ export DEBIAN_FRONTEND=noninteractive
 # System-wide operations need sudo
 sudo apt update -q
 
-# Some useful base tools (also pulls in software-properties-common on Debian if needed)
+# Some useful base tools
 sudo apt install -yq ca-certificates gnupg lsb-release
 
 # NOTE: No "universe" on Debian, so we skip add-apt-repository here.
 sudo apt upgrade -yq
-sudo apt install -yq curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv tmate  ufw dnsutils fastfetch net-tools htop btop network-manager tlp tlp-rdw "linux-headers-$(uname -r)"
+sudo apt install -yq curl git uidmap snapd python3 python3-pip pipx python3-venv tmate  ufw dnsutils fastfetch net-tools htop btop network-manager tlp tlp-rdw "linux-headers-$(uname -r)"
 sudo apt autoremove -y
-# PKGS=(
-#     curl postgresql postgresql-contrib git uidmap snapd python3 python3-pip pipx python3-venv
-#     fuse tmate libfuse2 ufw dnsutils fastfetch net-tools htop btop network-manager tlp tlp-rdw
-#     "linux-headers-$(uname -r)"
-# )
-
-# install_pkg_if_available() {
-#     local pkg="$1"
-
-#     # Check if package name exists in the Debian repos
-#     if ! apt-cache show "$pkg" &>/dev/null; then
-#         echo -e "\n\e[33m------------------| Package '$pkg' not found on Debian, skipping |----------------------\e[0m"
-#         return 0
-#     fi
-
-#     if dpkg -s "$pkg" &>/dev/null; then
-#         echo -e "\n\e[32m------------------| $pkg already installed, skipping |----------------------\e[0m"
-#     else
-#         echo -e "\n\e[34m------------------| INSTALLING $pkg |----------------------\e[0m"
-#         sudo apt install -yq "$pkg"
-#     fi
-# }
-
-# for pkg in "${PKGS[@]}"; do
-#     install_pkg_if_available "$pkg"
-# done
 
 # Per-user
 pipx ensurepath
 echo -e "\n\e[32m| DONE |\e[0m\n"
+
 
 echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                            Installing Other Stuff                               \e[0m"
@@ -85,12 +67,11 @@ sleep 0.5
 SNAPS=(ngrok)
 for s in "${SNAPS[@]}"; do
     if snap list "$s" &>/dev/null; then
-        echo -e "\n\e[32m------------------| snap '$s' already installed, skipping |----------------------\e[0m"
+        echo -e "\e[32m------------------| snap '$s' already installed, skipping |----------------------\e[0m"
     else
-        echo -e "\n\e[34m------------------| INSTALLING snap $s |----------------------\e[0m"
+        echo -e "\e[34m------------------| INSTALLING snap $s |----------------------\e[0m"
         sudo snap install "$s"
     fi
-
 done
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
@@ -136,26 +117,31 @@ sleep 0.5
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 mkdir -p "$ZSH_CUSTOM"/{plugins,themes}
 
-clone_if_missing() {
+clone_and_pin() {
     local repo="$1"
     local dest="$2"
+    local ref="$3"
 
     if [ -d "$dest" ]; then
-        echo "Already exists, skipping: $dest"
+        echo "Already exists, checking out pin: $dest"
+        git -C "$dest" fetch origin
     else
         echo "Cloning $repo -> $dest"
         git clone "$repo" "$dest"
     fi
+
+    git -C "$dest" checkout "$ref"
+    echo "Pinned $(basename "$dest") at $(git -C "$dest" rev-parse --short HEAD)"
 }
 
-# Plugins
-clone_if_missing "https://github.com/zsh-users/zsh-autosuggestions"        "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
-clone_if_missing "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
-clone_if_missing "https://github.com/marlonrichert/zsh-autocomplete.git"   "$ZSH_CUSTOM/plugins/zsh-autocomplete"
-clone_if_missing "https://github.com/zsh-users/zsh-completions.git"        "$ZSH_CUSTOM/plugins/zsh-completions"
+# Plugins (pinned to match main server_setup.sh)
+clone_and_pin "https://github.com/zsh-users/zsh-autosuggestions"        "$ZSH_CUSTOM/plugins/zsh-autosuggestions"        "$ZSH_AUTOSUGGESTIONS_REF"
+clone_and_pin "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"  "$ZSH_SYNTAX_HIGHLIGHTING_REF"
+clone_and_pin "https://github.com/marlonrichert/zsh-autocomplete.git"   "$ZSH_CUSTOM/plugins/zsh-autocomplete"         "$ZSH_AUTOCOMPLETE_REF"
+clone_and_pin "https://github.com/zsh-users/zsh-completions.git"        "$ZSH_CUSTOM/plugins/zsh-completions"          "$ZSH_COMPLETIONS_REF"
 
 # Theme
-clone_if_missing "https://github.com/romkatv/powerlevel10k.git"            "$ZSH_CUSTOM/themes/powerlevel10k"
+clone_and_pin "https://github.com/romkatv/powerlevel10k.git"            "$ZSH_CUSTOM/themes/powerlevel10k"             "$OMZ_REF"
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
@@ -184,6 +170,7 @@ else
     echo 'Default ZSH_THEME="robbyrussell" not found, leaving theme as-is.'
 fi
 echo -e "\n\e[32m| DONE |\e[0m\n"
+
 
 echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
 echo -e "\e[34m                                Setting Up Aliases                               \e[0m"
