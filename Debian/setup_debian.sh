@@ -118,8 +118,8 @@ ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 mkdir -p "$ZSH_CUSTOM"/{plugins,themes}
 
 # Clone and pin a repository to a specific ref.
-# The explicit ref fetch ensures the first clone (which only knows
-# the default branch) can still check out the requested pin.
+# Always treats the value as a ref (uses `--`) and falls back
+# to the repository's default branch if the requested pin is missing.
 clone_and_pin() {
     local repo="$1"
     local dest="$2"
@@ -137,9 +137,17 @@ clone_and_pin() {
     git -C "$dest" fetch --no-tags origin \
         "+${ref}:${ref}" 2>/dev/null \
     || git -C "$dest" fetch --no-tags origin \
-        "+refs/heads/*:refs/remotes/origin/*"
+        "+refs/heads/*:refs/remotes/origin/*" 2>/dev/null \
+    || true
 
-    git -C "$dest" checkout --detach "$ref"
+    # Verify the ref resolves to a commit, then check it out as a ref (not a path).
+    if git -C "$dest" rev-parse --verify --quiet "${ref}^{commit}" >/dev/null; then
+        git -C "$dest" checkout --detach -- "$ref"
+    else
+        echo "Requested ref '$ref' not found in $(basename "$dest"); using default branch."
+        git -C "$dest" checkout --detach -- HEAD
+    fi
+
     echo "Pinned $(basename "$dest") at $(git -C "$dest" rev-parse --short HEAD)"
 }
 
