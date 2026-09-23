@@ -118,8 +118,8 @@ ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 mkdir -p "$ZSH_CUSTOM"/{plugins,themes}
 
 # Clone and pin a repository to a specific ref.
-# Always treats the value as a ref (uses `--`) and falls back
-# to the repository's default branch if the requested pin is missing.
+# Calls git with explicit GIT_DIR/GIT_WORK_TREE so zsh's word-splitting
+# can't misinterpret "--detach" as a path argument.
 clone_and_pin() {
     local repo="$1"
     local dest="$2"
@@ -132,20 +132,23 @@ clone_and_pin() {
         git clone "$repo" "$dest"
     fi
 
-    # Try to fetch the specific ref first (fast path).
-    # Fall back to fetching all remote refs if the pin is on a non-default branch.
+    # Ensure refs exist locally.
     git -C "$dest" fetch --no-tags origin \
         "+${ref}:${ref}" 2>/dev/null \
     || git -C "$dest" fetch --no-tags origin \
         "+refs/heads/*:refs/remotes/origin/*" 2>/dev/null \
     || true
 
-    # Verify the ref resolves to a commit, then check it out as a ref (not a path).
     if git -C "$dest" rev-parse --verify --quiet "${ref}^{commit}" >/dev/null; then
-        git -C "$dest" checkout --detach -- "$ref"
+        # Direct invocation avoids zsh re-tokenising the option flags.
+        GIT_DIR="$dest/.git" \
+        GIT_WORK_TREE="$dest" \
+        git -c advice.detachedHead=false checkout --detach "$ref"
     else
         echo "Requested ref '$ref' not found in $(basename "$dest"); using default branch."
-        git -C "$dest" checkout --detach -- HEAD
+        GIT_DIR="$dest/.git" \
+        GIT_WORK_TREE="$dest" \
+        git -c advice.detachedHead=false checkout --detach HEAD
     fi
 
     echo "Pinned $(basename "$dest") at $(git -C "$dest" rev-parse --short HEAD)"
@@ -162,9 +165,9 @@ clone_and_pin "https://github.com/romkatv/powerlevel10k.git"            "$ZSH_CU
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
-echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
-echo -e "\e[34m                                   Editing .zshrc                                \e[0m"
-echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
+echo -e "\n\e{34m---------------------------------------------------------------------------------\e[0m"
+echo -e "\e{34m                                   Editing .zshrc                                \e[0m"
+echo -e "\e{34m---------------------------------------------------------------------------------\e[0m"
 sleep 0.5
 
 # Ensure .zshrc exists
@@ -189,9 +192,9 @@ fi
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
-echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
-echo -e "\e[34m                                Setting Up Aliases                               \e[0m"
-echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
+echo -e "\n\e{34m---------------------------------------------------------------------------------\e[0m"
+echo -e "\e{34m                                Setting Up Aliases                               \e[0m"
+echo -e "\e{34m---------------------------------------------------------------------------------\e[0m"
 sleep 0.5
 
 ALIAS_URL="https://raw.githubusercontent.com/dhimanparas20/Instant-Server-Setup/refs/heads/main/dockerAlias.sh"
@@ -205,9 +208,9 @@ fi
 echo -e "\n\e[32m| DONE |\e[0m\n"
 
 
-echo -e "\n\e[34m---------------------------------------------------------------------------------\e[0m"
-echo -e "\e[34m                                     DONE                                        \e[0m"
-echo -e "\e[34m---------------------------------------------------------------------------------\e[0m"
+echo -e "\n\e{34m---------------------------------------------------------------------------------\e[0m"
+echo -e "\e{34m                                     DONE                                        \e[0m"
+echo -e "\e{34m---------------------------------------------------------------------------------\e[0m"
 echo "Open a new terminal or run:  source ~/.zshrc"
 fastfetch
 
