@@ -1,5 +1,5 @@
---- a/setup_ubuntu.sh
-+++ b/setup_ubuntu.sh
+--- a/setup_ubuntu_v2.sh
++++ b/setup_ubuntu_v2.sh
 @@
 -# setup_ubuntu.sh — Ubuntu workstation / development-server bootstrap.
 +# setup_ubuntu.sh — Ubuntu / Debian development-system bootstrap.
