@@ -1,0 +1,212 @@
+--- a/setup_ubuntu.sh
++++ b/setup_ubuntu.sh
+@@
+-# setup_ubuntu.sh — Ubuntu workstation / development-server bootstrap.
++# setup_ubuntu.sh — Ubuntu / Debian development-system bootstrap.
+ #
+-# Intended targets: Ubuntu 22.04 and 24.04 with systemd.
++# Targets: Ubuntu 22.04 / 24.04 and Debian 12 / 13 with systemd.
+ # Run as the intended login user, NOT as root.
+@@
+ WORK_DIR=""
++DISTRO_ID=""
++DISTRO_VERSION=""
++DISTRO_CODENAME=""
++DOCKER_ARCH=""
+@@
+-  [[ "${ID}" == "ubuntu" ]] || die "Only Ubuntu is supported."
+-
+-  case "${VERSION_ID}" in
+-    22.04|24.04) ;;
+-    *) die "This script targets Ubuntu 22.04 / 24.04." ;;
++  DISTRO_ID="${ID:-}"
++  DISTRO_VERSION="${VERSION_ID:-}"
++  DISTRO_CODENAME="${VERSION_CODENAME:-}"
++
++  case "${DISTRO_ID}:${DISTRO_VERSION}" in
++    ubuntu:22.04)
++      [[ "${DISTRO_CODENAME}" == "jammy" ]] ||
++        die "Unexpected codename for Ubuntu 22.04."
++      ;;
++    ubuntu:24.04)
++      [[ "${DISTRO_CODENAME}" == "noble" ]] ||
++        die "Unexpected codename for Ubuntu 24.04."
++      ;;
++    debian:12)
++      [[ "${DISTRO_CODENAME}" == "bookworm" ]] ||
++        die "Unexpected codename for Debian 12."
++      ;;
++    debian:13)
++      [[ "${DISTRO_CODENAME}" == "trixie" ]] ||
++        die "Unexpected codename for Debian 13."
++      ;;
++    *)
++      die "Supported: Ubuntu 22.04 / 24.04 and Debian 12 / 13."
++      ;;
+   esac
+ 
+   [[ -d /run/systemd/system ]] ||
+@@
+   case "${DOCKER_MODE}" in
+     rootful|rootless) ;;
+     *) die "DOCKER_MODE must be rootful or rootless." ;;
+   esac
+ 
++  DOCKER_ARCH="$(dpkg --print-architecture)"
++
++  if [[ "${INSTALL_DOCKER}" == "true" ]]; then
++    case "${DOCKER_ARCH}" in
++      amd64|arm64) ;;
++      *)
++        die "This script validates Docker setup only for amd64 / arm64."
++        ;;
++    esac
++  fi
++
+@@
+-  section "Ubuntu setup started — $(date -Is)"
++  section "Linux setup started — $(date -Is)"
++  printf 'Distribution: %s %s (%s)\n' \
++    "${DISTRO_ID}" "${DISTRO_VERSION}" "${DISTRO_CODENAME}"
++  printf 'Architecture: %s\n' "${DOCKER_ARCH}"
+ }
+ 
+ # ─── System packages ─────────────────────────────────────────────────────────
+ 
++check_package_candidates() {
++  local package
++  local candidate
++  local missing=()
++
++  for package in "$@"; do
++    candidate="$(
++      apt-cache policy "${package}" |
++        awk '/Candidate:/ { print $2; exit }'
++    )"
++
++    if [[ -z "${candidate}" || "${candidate}" == "(none)" ]]; then
++      missing+=("${package}")
++    fi
++  done
++
++  if (( ${#missing[@]} > 0 )); then
++    printf 'No APT candidate for: %s\n' "${missing[*]}" >&2
++    die "Review your distribution repositories before rerunning."
++  fi
++}
++
+ setup_system_packages() {
+   section "System packages"
+ 
+   sudo apt-get update
+-  apt_install software-properties-common ca-certificates curl
+-  sudo add-apt-repository -y universe
+-  sudo apt-get update
++  apt_install ca-certificates curl
++
++  case "${DISTRO_ID}" in
++    ubuntu)
++      apt_install software-properties-common
++      sudo add-apt-repository -y universe
++      sudo apt-get update
++      ;;
++    debian)
++      # Debian has no Ubuntu-style "universe" component.
++      # Preserve the administrator's configured Debian repositories.
++      ok "Using existing Debian APT repositories"
++      ;;
++  esac
+@@
+-  apt_install "${packages[@]}"
++  check_package_candidates "${packages[@]}"
++  apt_install "${packages[@]}"
+ 
+   if [[ "${INSTALL_FASTFETCH}" == "true" ]]; then
+-    if apt-cache show fastfetch >/dev/null 2>&1; then
++    local fastfetch_candidate
++    fastfetch_candidate="$(
++      apt-cache policy fastfetch |
++        awk '/Candidate:/ { print $2; exit }'
++    )"
++
++    if [[ -n "${fastfetch_candidate}" &&
++      "${fastfetch_candidate}" != "(none)" ]]; then
+       apt_install fastfetch
+@@
+ install_docker_packages() {
+-  local architecture
+-  local codename
+-
+-  architecture="$(dpkg --print-architecture)"
+-
+-  # shellcheck disable=SC1091
+-  source /etc/os-release
+-  codename="${VERSION_CODENAME}"
++  local repository_url
++  repository_url="https://download.docker.com/linux/${DISTRO_ID}"
++
++  # Do not create duplicate or cross-distribution Docker sources.
++  # Preserve existing sources for deliberate administrator review.
++  local source_file
++  local docker_sources=()
++  local source_files=(/etc/apt/sources.list)
++
++  shopt -s nullglob
++  source_files+=(
++    /etc/apt/sources.list.d/*.list
++    /etc/apt/sources.list.d/*.sources
++  )
++  shopt -u nullglob
++
++  for source_file in "${source_files[@]}"; do
++    [[ -f "${source_file}" ]] || continue
++
++    if grep -Eq \
++      '^[[:space:]]*[^#].*download[.]docker[.]com' \
++      "${source_file}"; then
++      if [[ "${source_file}" != \
++        "/etc/apt/sources.list.d/docker.sources" ]]; then
++        docker_sources+=("${source_file}")
++      elif ! grep -Fxq \
++        "URIs: ${repository_url}" "${source_file}"; then
++        docker_sources+=("${source_file}")
++      fi
++    fi
++  done
++
++  if (( ${#docker_sources[@]} > 0 )); then
++    printf 'Review existing Docker APT sources:\n' >&2
++    printf '  %s\n' "${docker_sources[@]}" >&2
++    die "Consolidate Docker sources before rerunning; do not mix distros."
++  fi
+ 
+@@
+-  download "https://download.docker.com/linux/ubuntu/gpg" \
++  download "${repository_url}/gpg" \
+     "${WORK_DIR}/docker.asc"
+@@
+ Types: deb
+-URIs: https://download.docker.com/linux/ubuntu
+-Suites: ${codename}
++URIs: ${repository_url}
++Suites: ${DISTRO_CODENAME}
+ Components: stable
+-Architectures: ${architecture}
++Architectures: ${DOCKER_ARCH}
+ Signed-By: /etc/apt/keyrings/docker.asc
+ EOF
+ 
+@@
+   sudo apt-get update
++  check_package_candidates \
++    docker-ce \
++    docker-ce-cli \
++    containerd.io \
++    docker-buildx-plugin \
++    docker-compose-plugin \
++    docker-ce-rootless-extras
++
+   apt_install \
+@@
+-    warn "Ubuntu reports that a reboot is required."
++    warn "The operating system reports that a reboot is required."
